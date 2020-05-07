@@ -1,0 +1,56 @@
+// Langkah pertama Buat satu file scss untuk ambil impor root style bulma.sass untuk jadi versi bebas mystyles.css nya, 
+//@charset "utf-8";
+//@import "../node_modules/bulma/bulma.sass";
+
+
+// Langkah kedua Buat Style Bebas seperti dibawah ini
+@charset "utf-8";
+
+
+// Import a Google Font
+@import url('https://fonts.googleapis.com/css?family=Product+Sans');
+
+
+// Font Custom for Typography
+$family-sans-serif  : "Product Sans", sans-serif;
+
+
+// Brand colors
+$warning        : #F0AF0A;
+$primary        : #818818;
+$brown          : #645b3d;
+$white-canvas   : #fafafa;
+
+
+// Basic Color friom Bulma
+$orange	    :   hsl(14, 100%, 53%);
+$yellow	    :	hsl(48, 100%, 67%);
+$green	    :	hsl(141, 53%, 53%);
+$turquoise  :	hsl(171, 100%, 41%);
+$cyan	    :	hsl(204, 71%, 53%);
+$blue	    :	hsl(217, 71%, 53%);
+$purple	    :	hsl(271, 100%, 71%);
+$red	    :	hsl(348, 86%, 61%);
+
+
+
+// Status Color
+$info       : $cyan;
+$success    : $green;
+$danger     : $orange;
+
+// Screen size
+$widescreen-enabled : false;
+$fullhd-enabled     : false;
+
+
+// Update some of Bulma's component variables
+$body-background-color: $white-canvas;
+
+$control-border-width: 2px;
+$input-border-color: transparent;
+$input-shadow: none;
+
+
+// Import only what you need from Bulma
+@import "../node_modules/bulma/bulma.sass";
