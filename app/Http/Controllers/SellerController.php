@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Seller;
-use App\Prodcuts;
+use App\Products;
 
 class SellerController extends Controller
 {
@@ -59,7 +59,7 @@ class SellerController extends Controller
 
         $seller->save();
 
-        return redirect()->route('seller.detail')->with('success','You have success registration as seller ');
+        return redirect()->route('seller.index')->with('success','You have success registration as seller ');
     }
 
     /**

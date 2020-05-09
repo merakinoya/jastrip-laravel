@@ -14,14 +14,18 @@
 
     <div class="column is-one-third">
         <figure class="image is-64x64 is-spaced">
-            @if ($user->punyaProfile(NULL) )
-            <a href="{{ route('userprofile.create') }}" >
-                <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
-            </a>
-            @else
-            <a href="{{ route('userprofile.create') }}" >
+            @if (Auth::user()->punyaProfile)
+            
+            <a href="{{ route('userprofile.photo') }}" >
                 <img class="is-rounded" src="{{ asset('/storage/images/'. $user->punyaProfile->img_photo ) }}">
             </a>
+            
+            @else
+            
+            <a href="{{ route('userprofile.photo') }}" >
+                <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
+            </a>
+            
             @endif
 
         </figure>

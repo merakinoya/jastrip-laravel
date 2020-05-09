@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,12 @@ Route::resources([
     'userprofile' => 'UserProfileController'
 ]);
 
+Route::get('photo', 'UserProfileController@photo')->name('userprofile.photo');
+Route::post('/userprofile', 'UserProfileController@uploadPhoto')->name('userprofile.uploadPhoto');
+
+
+Route::get('activate-seller', 'UserProfileController@signupSeller')->name('signup-seller');
+Route::post('/activate-seller', 'UserProfileController@activateSeller')->name('activate-seller-now');
 
 /* 
 Route::get('userprofile/edit',[

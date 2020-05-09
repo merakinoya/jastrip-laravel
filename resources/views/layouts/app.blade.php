@@ -13,7 +13,7 @@
 
     <!-- Bulma CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
-    
+
     <link href="{{ asset('/node_modules/bulma/css/bulma.css') }}" rel="stylesheet">
     <script src="https://use.fontawesome.com/releases/v5.3.1/js/all.js" defer></script>
 
@@ -46,6 +46,12 @@
             border: 0px solid #dbdbdb;
             border-radius: 3px;
             box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02);
+        }
+
+        .image-uploaded {
+            width: 128px;
+            height: 128px;
+            object-fit: cover;
         }
 
     </style>
@@ -96,7 +102,7 @@
                             Products
                         </a>
 
-                        <a class="navbar-item" href="{{ url('/seller') }}">
+                        <a class="navbar-item" href="{{ url('/activate-seller') }}">
                             Seller
                         </a>
 
@@ -193,7 +199,7 @@
 
     <main class="section">
         <div class="container" style="padding-top: 80px;">
-            
+
             <!-- YOUR CONTENT WIL BE HERE-->
             @yield('content')
 
@@ -215,7 +221,8 @@
     </footer>
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.5.9/lottie.min.js"></script>
 
     <script src="{{ asset('/js/script.js') }}"></script>
@@ -223,6 +230,29 @@
     <script src="{{ asset('/js/dropzone/dropzone.js') }}"></script>
 
     <script>
+        const fileInput = document.querySelector('#file-js-example input[type=file]');
+        fileInput.onchange = () => {
+            if (fileInput.files.length > 0) {
+                const fileName = document.querySelector('#file-js-example .file-name');
+                fileName.textContent = fileInput.files[0].name;
+            }
+        }
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#imagePreview').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]); // convert to base64 string
+            }
+        }
+
+        $("#imgInp").change(function () {
+            readURL(this);
+        });
 
         var animation = bodymovin.loadAnimation({
             container: document.getElementById('lottie'), // Required
@@ -241,6 +271,8 @@
             autoplay: true, // Optional
             name: "Hello World", // Name for future reference. Optional.
         });
+
     </script>
 </body>
+
 </html>

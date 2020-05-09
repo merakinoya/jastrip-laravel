@@ -61,6 +61,11 @@ class User extends Authenticatable
         return $this->hasOne('App\UserProfile','user_id','id');
     }
 
+    public function punyaSeller()
+    {
+        return $this->hasOne('App\Seller','user_id','id');
+    }
+
 
     //Check punya role
     public function hasRole($role)

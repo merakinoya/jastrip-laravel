@@ -10,15 +10,17 @@ use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use Intervention\Image\ImageManagerStatic as Image;
 
 use App\User;
 use App\Role;
 use App\UserProfile;
+use App\Seller;
 
 
 class UserProfileController extends Controller
 {
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -36,7 +38,7 @@ class UserProfileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function photo()
     {
         //
         return view('user.photo');
@@ -48,24 +50,24 @@ class UserProfileController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function uploadPhoto(Request $request)
     {
         //
         $user = Auth::user();
 
-        if($request->hasFile('img_photo'))
-        {
+        if ($request->hasFile('img_photo')) {
             $filename = $request->img_photo->getClientOriginalName();
 
+            // Save files to directory folder
             $request->img_photo->storeAs('/images', $filename, 'public');
 
+            // Save name file to Database
             $user->punyaProfile->update([
                 'img_photo' => $filename
             ]);
-            
         }
 
-        return redirect()->route('userprofile.index')->with('status','Item created successfully');
+        return redirect()->route('userprofile.index')->with('status', 'Item created successfully');
     }
 
     /**
@@ -85,39 +87,43 @@ class UserProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
         //mengambil model User dengan di buat alias variabel $user
         $user = Auth::user();
-        $userprofile = User::find($id)->punyaProfile;
+        $userprofile = $user->punyaProfile;
 
         return view('user.edit', compact('user', 'userprofile'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $user, $id)
     {
-        // If Model User punya funtion "punyaprofile" masih kosong
-        //if ($user->punyaProfile === NULL){
-        //    $profile = new UserProfile;
-        //    $profile->phone = request('phone');
-        //    $user->punyaProfile()->save($profile);}
-        
+        $user = Auth::user();
+        $userprofile = $user->punyaProfile;
+
+        //If tidak punya funtion "punyaprofile" / masih kosong
+        if (!$userprofile) {
+            $profile = new UserProfile;
+
+            $profile->user_id = $id;
+
+            $profile->gender = request('gender');
+            $profile->phone = request('phone');
+
+            $user->punyaProfile()->save($profile);
+        }
+
         $user = User::find($id);
 
-        $user->name = request('name');
-        $user->punyaProfile->gender = request('gender'); 
-        $user->punyaProfile->phone = request('phone'); //punyaProfile is function in User Model relation one to one
+        $user->name                   = request('name');
+        $user->punyaProfile->gender   = request('gender');
+        $user->punyaProfile->phone    = request('phone'); //punyaProfile is function in User Model relation one to one
 
-        $user->push(); //For update data relational 
-        
-        return redirect()->back()->with("status","Profil berhasil diupdate.");
+        //$user->push(); //For update data relational
+        $user->push();
+
+        return redirect()->back()->with("status", "Profil berhasil diupdate.");
     }
 
     /**
@@ -131,6 +137,43 @@ class UserProfileController extends Controller
         //
     }
 
+    public function signupSeller()
+    {
+        //
+        return view('seller.activate');
+    }
+
+
+    public function activateSeller()
+    {
+        $user = Auth::user();
+        $id = Auth::id();
+        $userseller = $user->punyaSeller;
+
+        //If tidak punya funtion "punyaprofile" / masih kosong
+        if (!$userseller) 
+        {
+            $seller = new Seller;
+
+            $seller->user_id = $id;
+
+            $seller->name = 'This Is Name Seller';
+
+            $user->punyaSeller()->save($seller);
+
+            return redirect()->route('signup-seller')->with('status', 'Item created successfully');
+        } 
+        else 
+        {
+            $user = Auth::user();
+            $userseller = $user->punyaSeller;
+            
+            return view('seller.activate', compact('user'));
+        }
+    }
+
+
+
     /** Custom Code */
 
     public function changePassword()
@@ -140,27 +183,23 @@ class UserProfileController extends Controller
 
     public function updatePassword(Request $request)
     {
-        if(!(Hash::check($request->get('current-password'), Auth::user()->password)))
-        {
-            return redirect()->back()->with('error',"Password lama ngga pas");
+        if (!(Hash::check($request->get('current-password'), Auth::user()->password))) {
+            return redirect()->back()->with('error', "Password lama ngga pas");
         }
 
-        if(strcmp($request->get('current-password'), $request->get('new-password')) == 0)
-        {
-            return redirect()->back()->with('error',"Password harus beda dengan password lama");
+        if (strcmp($request->get('current-password'), $request->get('new-password')) == 0) {
+            return redirect()->back()->with('error', "Password harus beda dengan password lama");
         }
 
         $validatedData = $request->validate([
-            'current-password'=>'required',
-            'new-password'=>'required|string|min:6|confirmed',
+            'current-password' => 'required',
+            'new-password' => 'required|string|min:6|confirmed',
         ]);
 
         $user = Auth::user();
         $user->password = bcrypt($request->get('new-password'));
         $user->save();
 
-        return redirect()->back()->with("success","Password berhasil diubah");
+        return redirect()->back()->with("success", "Password berhasil diubah");
     }
-
-
 }

@@ -12,24 +12,7 @@
 
 <form method="POST" action="{{ route('userprofile.update', $user) }}" enctype="multipart/form-data">
     @csrf
-    {{ method_field('patch') }}
-
-    <div class="field">
-        <label class="label">Photo</label>
-        <div class="control">
-            <div class="file has-name is-right is-fullwidth">
-                <label class="file-label">
-                    <input type="file" name="img_photo">
-                    
-                </label>
-            </div>
-        </div>
-
-        @error('name')
-        <p class="help">{{ $message }}</p>
-        @enderror
-    </div>
-
+    {{ method_field('PUT') }}
 
     <div class="field">
         <label class="label">Name</label>
@@ -44,29 +27,53 @@
     </div>
 
     <div class="field">
-        <label class="label">Jenis Kelamin</label>
-
+        <label class="label">Gender</label>
         <div class="control">
-            <div class="select is-rounded">
-                <select name="gender">
-                    <option value="Pria" {{ ($user->punyaProfile->gender == 'Pria') ? 'selected' : '' }}>Pria</option>
-                    <option value="Wanita" {{ ($user->punyaProfile->gender  == 'Wanita') ? 'selected' : '' }}>Wanita
-                    </option>
-                </select>
+            
+            @if (Auth::user()->punyaProfile)
+            <div class="control">
+                <label class="radio">
+                    <input type="radio"  id="option1" name="gender" value="0"  {{ ($user->punyaProfile->gender =="0" )? "checked" : "" }} > Male
+                </label>
+
+                <label class="radio">
+                    <input type="radio" id="option2" name="gender" value="1" {{ ($user->punyaProfile->gender =="1" )? "checked" : "" }} > Female
+                </label>
             </div>
+            @else
+
+            <div class="control">
+                <label class="radio">
+                    <input type="radio"  id="option1" name="gender" value="0" > Male
+                </label>
+
+                <label class="radio">
+                    <input type="radio" id="option2" name="gender" value="1" > Female
+                </label>
+            </div>
+            
+            @endif
+
+
         </div>
 
         @error('phone')
         <p class="help">{{ $message }}</p>
         @enderror
     </div>
+
 
     <div class="field">
         <label class="label">Phone</label>
         <div class="control">
 
-            <input value="{{ $user->punyaProfile->phone }}" name="phone" id="phone"
-                class="input @error('phone') is-invalid @enderror" type="number" placeholder="Placeholder input field">
+            @if (Auth::user()->punyaProfile)
+                <input value="{{ $user->punyaProfile->phone  }}" name="phone" id="phone" class="input @error('phone') is-invalid @enderror" type="number" placeholder="08..">
+            @else
+                <input name="phone" id="phone" class="input @error('phone') is-invalid @enderror" type="number" placeholder="08..">
+            @endif
+
+
         </div>
 
         @error('phone')
@@ -74,22 +81,14 @@
         @enderror
     </div>
 
-    <button type="submit" class="level-right button is-primary">Simpan Profile</button>
+    
+
+    <div class="field is-grouped">
+        <div class="control">
+          <button type="submit" class="level-right button is-primary">Simpan Profile</button>
+        </div>
+      </div>
 
 </form>
-
-<script>
-    // Close Notif 
-    document.addEventListener('DOMContentLoaded', () => {
-        (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
-            $notification = $delete.parentNode;
-
-            $delete.addEventListener('click', () => {
-                $notification.parentNode.removeChild($notification);
-            });
-        });
-    });
-
-</script>
 
 @endsection

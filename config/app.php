@@ -176,6 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         
         // Baru
+        Intervention\Image\ImageServiceProvider::class,
 
     ],
 
@@ -230,6 +231,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         //Baru
+        'Image' => Intervention\Image\Facades\Image::class,
     ],
 
 ];
