@@ -46,11 +46,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-
-
+        
         'api' => [
-            'driver' => 'passport',
+            'driver' => 'passport', // 'token'
             'provider' => 'users',
+            'hash' => true,
         ],
     ],
 

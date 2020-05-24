@@ -72,17 +72,16 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'api_token' => Str::random(60),
+            //'api_token' => Str::random(60),
         ]);
-
-        /** Custom add UserProfile Data */
-        //$profile = new Userrofile;
-        //$profile->phone = $data['phone'];
-
-        /** Customer role */
-        $role_user  = Roles::where('id', '2')->first();
         
+        //Attach role user Customer
+        $role_user  = Roles::where('id', '2')->first();
         $user->roles()->attach($role_user);
+
+        //Add relation to UserProfile
+        $profile = new UserProfile;
+        $user->punyaProfile()->save($profile);
 
         return $user;
     }

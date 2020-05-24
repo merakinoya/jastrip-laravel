@@ -1,25 +1,24 @@
 <?php
 
 namespace App;
-
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 use Laravel\Passport\HasApiTokens;
+
 use Illuminate\Support\Str;
-use Laravel\Passport\Passport;
 
 class User extends Authenticatable
 {
-    use Notifiable, HasApiTokens;
+    use  HasApiTokens, Notifiable;
 
     /**
      * The attributes that are mass assignable.
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'api_token',
     ];
 
     /**
@@ -28,7 +27,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token', 'api_token'
+        'password', 'remember_token',
     ];
 
     /**
@@ -40,12 +39,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function createToken()
-    {
-        $this->api_token = Str::random(60);
-        $this->save();
 
-        return $this->api_token;
+    public function updateToken($request)
+    {
+        $token = Str::random(60);
+
+        $request->user()->forceFill([
+            'api_token' => hash('sha256', $token),
+        ])->save();
+
+        return ['token' => $token];
     }
 
 

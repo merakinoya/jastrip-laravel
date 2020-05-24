@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOauthAuthCodesTable extends Migration
+class CreateOauthPersonalAccessClientsTable extends Migration
 {
     /**
      * The database schema.
@@ -30,13 +30,10 @@ class CreateOauthAuthCodesTable extends Migration
      */
     public function up()
     {
-        $this->schema->create('oauth_auth_codes', function (Blueprint $table) {
-            $table->string('id', 100)->primary();
-            $table->unsignedBigInteger('user_id')->index();
-            $table->unsignedBigInteger('client_id');
-            $table->text('scopes')->nullable();
-            $table->boolean('revoked');
-            $table->dateTime('expires_at')->nullable();
+        $this->schema->create('oauth_personal_access_clients', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->uuid('client_id');
+            $table->timestamps();
         });
     }
 
@@ -47,7 +44,7 @@ class CreateOauthAuthCodesTable extends Migration
      */
     public function down()
     {
-        $this->schema->dropIfExists('oauth_auth_codes');
+        $this->schema->dropIfExists('oauth_personal_access_clients');
     }
 
     /**

@@ -11,24 +11,23 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Bulma CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
+    <!-- Bulma CSS 
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
+        <link href="" rel="stylesheet">
+    -->
 
-    <link href="{{ asset('/node_modules/bulma/css/bulma.css') }}" rel="stylesheet">
     <script src="https://use.fontawesome.com/releases/v5.3.1/js/all.js" defer></script>
 
     <!-- Styles -->
     <link href="{{ asset('/css/mystyles.css') }}" rel="stylesheet">
     <link href="{{ asset('/css/styles.css') }}" rel="stylesheet">
 
-    <link href="{{ asset('/js/dropzone/dropzone.css') }}" rel="stylesheet">
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Lato:200,600" rel="stylesheet">
 
     <style>
-        nav.navbar {
+        .navbar {
             box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06) !important;
         }
 
@@ -47,13 +46,6 @@
             border-radius: 3px;
             box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02);
         }
-
-        .image-uploaded {
-            width: 128px;
-            height: 128px;
-            object-fit: cover;
-        }
-
     </style>
 </head>
 
@@ -227,33 +219,7 @@
 
     <script src="{{ asset('/js/script.js') }}"></script>
 
-    <script src="{{ asset('/js/dropzone/dropzone.js') }}"></script>
-
     <script>
-        const fileInput = document.querySelector('#file-js-example input[type=file]');
-        fileInput.onchange = () => {
-            if (fileInput.files.length > 0) {
-                const fileName = document.querySelector('#file-js-example .file-name');
-                fileName.textContent = fileInput.files[0].name;
-            }
-        }
-
-        function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = function (e) {
-                    $('#imagePreview').attr('src', e.target.result);
-                }
-
-                reader.readAsDataURL(input.files[0]); // convert to base64 string
-            }
-        }
-
-        $("#imgInp").change(function () {
-            readURL(this);
-        });
-
         var animation = bodymovin.loadAnimation({
             container: document.getElementById('lottie'), // Required
             path: 'https://assets6.lottiefiles.com/packages/lf20_h9fcK1.json',

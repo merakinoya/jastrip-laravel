@@ -87,4 +87,16 @@
         </div>
     </div>
 
+<script>
+    var animation = bodymovin.loadAnimation({
+        container: document.getElementById('camp-outdoor'), // Required
+        path: 'https://assets6.lottiefiles.com/packages/lf20_umBOmV.json',
+        renderer: 'svg', // Required
+        loop: true, // Optional
+        autoplay: true, // Optional
+        name: "Hello World", // Name for future reference. Optional.
+    });
+
+</script>
+
 @endsection

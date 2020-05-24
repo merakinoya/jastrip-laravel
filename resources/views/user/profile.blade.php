@@ -15,22 +15,21 @@
     <div class="column is-one-third">
         <figure class="image is-64x64 is-spaced">
             @if (Auth::user()->punyaProfile)
-            
-            <a href="{{ route('userprofile.photo') }}" >
+
+            <a href="{{ route('userprofile.photo') }}">
                 <img class="is-rounded" src="{{ asset('/storage/images/'. $user->punyaProfile->img_photo ) }}">
             </a>
-            
             @else
-            
-            <a href="{{ route('userprofile.photo') }}" >
+
+            <a href="{{ route('userprofile.photo') }}">
                 <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
             </a>
-            
+
             @endif
 
         </figure>
 
-        
+
         <br>
         <p class="title is-3 ">{{ $user->name }}</p>
         <p class="subtitle">
@@ -62,6 +61,9 @@
                 My Menu
             </p>
             <ul class="menu-list">
+                <li>
+                    <a id="open-modal" class="button is-primary modal-button">Launch image modal</a>
+                </li>
                 <li><a>Order</a></li>
                 <li><a>Transaction History</a></li>
             </ul>
@@ -111,5 +113,39 @@
     </div>
 
 </div>
+
+<div id="open-modal" class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Modal title</p>
+            <button class="delete" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+            <!-- Content ... -->
+        </section>
+        <footer class="modal-card-foot">
+            <button class="button is-success">Save changes</button>
+            <button class="button">Cancel</button>
+        </footer>
+    </div>
+</div>
+
+<script>
+    document.querySelector('a#open-modal').addEventListener('click', function (event) {
+        event.preventDefault();
+        var modal = document.querySelector('.modal'); // assuming you have only 1
+        var html = document.querySelector('html');
+        modal.classList.add('is-active');
+        html.classList.add('is-clipped');
+
+        modal.querySelector('.modal-background').addEventListener('click', function (e) {
+            e.preventDefault();
+            modal.classList.remove('is-active');
+            html.classList.remove('is-clipped');
+        });
+    });
+
+</script>
 
 @endsection

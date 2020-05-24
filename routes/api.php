@@ -23,15 +23,14 @@ Route::middleware('auth:api')->get(
     }
 );
 
+Route::post('login',    'RestApi\UserController@login');
+Route::post('register', 'RestApi\UserController@register');
 
-Route::get('seller', 'RestApi\SellerController@index');
-Route::get('seller/{id}', 'RestApi\SellerController@show');
-
-Route::post('seller', 'RestApi\SellerController@create');
-
-Route::put('seller/{id}', 'RestApi\SellerController@update');
-
-Route::delete('seller/{id}', 'RestApi\SellerController@delete');
+Route::get('seller',        'RestApi\SellerController@index');
+Route::get('seller/{id}',   'RestApi\SellerController@show');
+Route::post('seller',       'RestApi\SellerController@create');
+Route::put('seller/{id}',   'RestApi\SellerController@update');
+Route::delete('seller/{id}','RestApi\SellerController@delete');
 
 
 /** CARA ROUTE GABUNG CONTROLLER
