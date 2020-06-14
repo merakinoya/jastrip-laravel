@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'api_token',
+        'name', 'email', 'password',
     ];
 
     /**
@@ -27,7 +27,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token','api_token',
     ];
 
     /**
@@ -52,13 +52,13 @@ class User extends Authenticatable
     }
 
 
-    //Conection to Many- Roles Tabel
+    //Relation to Many- Roles Tabel
     public function roles()
     {
         return $this->belongsToMany('App\Roles','role_users','user_id','role_id')->withTimestamps();
     }
 
-    // Conection to One to One - Profile of User
+    // Relation to One to One - Profile of User
     public function punyaProfile()
     {
         return $this->hasOne('App\UserProfile','user_id','id');

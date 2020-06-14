@@ -16,21 +16,22 @@ use App\Seller; // Opsional panggil Model jika ingin Gabung Controller dengan Ro
 |
 */
 
-Route::middleware('auth:api')->get(
-    '/user',
+Route::middleware('auth:api')->get('/user',
+
     function (Request $request) {
         return $request->user();
     }
 );
 
-Route::post('login',    'RestApi\UserController@login');
-Route::post('register', 'RestApi\UserController@register');
+Route::post('login',    'API\UserController@login');
+Route::post('register', 'API\UserController@register');
+Route::post('signup',   'API\UserController@signup');
 
-Route::get('seller',        'RestApi\SellerController@index');
-Route::get('seller/{id}',   'RestApi\SellerController@show');
-Route::post('seller',       'RestApi\SellerController@create');
-Route::put('seller/{id}',   'RestApi\SellerController@update');
-Route::delete('seller/{id}','RestApi\SellerController@delete');
+Route::get('seller',        'API\SellerController@index');
+Route::get('seller/{id}',   'API\SellerController@show');
+Route::post('seller',       'API\SellerController@create');
+Route::put('seller/{id}',   'API\SellerController@update');
+Route::delete('seller/{id}','API\SellerController@delete');
 
 
 /** CARA ROUTE GABUNG CONTROLLER

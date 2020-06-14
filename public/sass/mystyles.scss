@@ -52,5 +52,18 @@ $input-border-color: transparent;
 $input-shadow: none;
 
 
+$body-size : 16px;	
+$body-min-width	:360px;	
+$body-font-size	: 1em;
+
+
+$navbar-box-shadow-size: 0 2px 0 0;
+$navbar-height: 3.5rem;
+$navbar-padding-vertical: 1rem; 
+$navbar-padding-horizontal: 2rem;
+
+
+
 // Import only what you need from Bulma
 @import "../node_modules/bulma/bulma.sass";
+@import "../node_modules/bulma/sass/components/navbar.sass";
