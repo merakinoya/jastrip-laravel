@@ -189,14 +189,14 @@
         </nav>
     -->
 
-    <main class="section">
-        <div class="container" style="padding-top: 80px;">
+        <main class="container" style="padding-top: 80px;">
+            <div class="section">
 
             <!-- YOUR CONTENT WIL BE HERE-->
             @yield('content')
 
-        </div>
-    </main>
+            </div>
+        </main>
 
 
     <footer class="footer">

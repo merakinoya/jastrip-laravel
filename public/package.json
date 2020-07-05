@@ -1,21 +1,23 @@
 {
-  "name": "mybulma",
+  "name": "public",
   "version": "1.0.0",
-  "description": "",
+  "description": "for CSS and Js",
   "main": "sass/mystyles.scss",
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "css-build": "node-sass --omit-source-map-url sass/mystyles.scss css/mystyles.css",
     "css-watch": "npm run css-build -- --watch",
     "start": "npm run css-watch"
   },
   "author": "",
   "license": "MIT",
-  "devDependencies": {
-    "bulma": "^0.8.2",
-    "node-sass": "^4.13.1"
-  },
   "dependencies": {
-    "bulma-calendar": "^6.0.7",
-    "bulma-toast": "^1.5.10"
+    "bootstrap": "^4.5.0",
+    "install": "^0.13.0",
+    "npm": "^6.14.5"
+  },
+  "devDependencies": {
+    "bulma": "^0.9.0",
+    "node-sass": "^4.14.1"
   }
 }

@@ -31,7 +31,6 @@ class UserController extends Controller
             $user = Auth::user();
             $token = $user->createToken('api_token')->accessToken; //createToken in VSCode undifinde but still working
 
-
             return response()->json(['user' => $user ,'api_token' => $token], 200);
         } 
         else 
@@ -71,16 +70,12 @@ class UserController extends Controller
          //Add relation to UserProfile
          $profile = new UserProfile;
          $user->punyaProfile()->save($profile);
- 
 
         $token = $user->createToken('api_token')->accessToken; 
         
 
         return response()->json(['user' => $user ,'api_token' => $token], 200);
     }
-
-
-
 
 
     public function details()

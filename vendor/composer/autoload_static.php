@@ -554,6 +554,8 @@ class ComposerStaticInit0ea10ceda0401ea99722293123d76a41
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Http\\Controllers\\API\\SellerController' => __DIR__ . '/../..' . '/app/Http/Controllers/API/SellerController.php',
+        'App\\Http\\Controllers\\API\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/API/UserController.php',
         'App\\Http\\Controllers\\ApiTokenController' => __DIR__ . '/../..' . '/app/Http/Controllers/ApiTokenController.php',
         'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
@@ -564,8 +566,6 @@ class ComposerStaticInit0ea10ceda0401ea99722293123d76a41
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\ProductsController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProductsController.php',
-        'App\\Http\\Controllers\\RestApi\\SellerController' => __DIR__ . '/../..' . '/app/Http/Controllers/RestApi/SellerController.php',
-        'App\\Http\\Controllers\\RestApi\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/RestApi/UserController.php',
         'App\\Http\\Controllers\\SellerController' => __DIR__ . '/../..' . '/app/Http/Controllers/SellerController.php',
         'App\\Http\\Controllers\\UserProfileController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserProfileController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',

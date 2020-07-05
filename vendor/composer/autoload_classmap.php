@@ -8,6 +8,8 @@ $baseDir = dirname($vendorDir);
 return array(
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
+    'App\\Http\\Controllers\\API\\SellerController' => $baseDir . '/app/Http/Controllers/API/SellerController.php',
+    'App\\Http\\Controllers\\API\\UserController' => $baseDir . '/app/Http/Controllers/API/UserController.php',
     'App\\Http\\Controllers\\ApiTokenController' => $baseDir . '/app/Http/Controllers/ApiTokenController.php',
     'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
     'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
@@ -18,8 +20,6 @@ return array(
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\HomeController' => $baseDir . '/app/Http/Controllers/HomeController.php',
     'App\\Http\\Controllers\\ProductsController' => $baseDir . '/app/Http/Controllers/ProductsController.php',
-    'App\\Http\\Controllers\\RestApi\\SellerController' => $baseDir . '/app/Http/Controllers/RestApi/SellerController.php',
-    'App\\Http\\Controllers\\RestApi\\UserController' => $baseDir . '/app/Http/Controllers/RestApi/UserController.php',
     'App\\Http\\Controllers\\SellerController' => $baseDir . '/app/Http/Controllers/SellerController.php',
     'App\\Http\\Controllers\\UserProfileController' => $baseDir . '/app/Http/Controllers/UserProfileController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',

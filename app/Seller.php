@@ -11,11 +11,15 @@ class Seller extends Model
         'name',
     ];
 
+
+    // Seller -punya> Products
     public function punyaProducts()
     {
         return $this->hasMany('App\Products','seller_id','id');
     }
 
+
+    //  User <- Seller
     public function dipunyaiUser()
     {
         return $this->belongsTo('App\User', 'id');

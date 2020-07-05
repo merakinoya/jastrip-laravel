@@ -17,6 +17,7 @@ class Products extends Model
         'start_at', 
         'finish_at', 
         'price',
+        'img',
     ];
 
 

@@ -2,28 +2,29 @@
 
 @section('content')
 
-@if (session('status'))
-<div id="snackbar" class="notification is-info is-light">
-    <button class="delete"></button>
-    <strong>Message</strong>
-    {{ session('status') }}
-</div>
+@if(session('status'))
+    <div id="snackbar" class="notification is-info is-light">
+        <button class="delete"></button>
+        <strong>Message</strong>
+        {{ session('status') }}
+    </div>
 @endif
 
 <div class="columns">
 
     <div class="column is-one-third">
         <figure class="image is-64x64 is-spaced">
-            @if (Auth::user()->punyaProfile)
+            @if(Auth::user()->punyaProfile)
 
-            <a href="{{ route('userprofile.photo') }}">
-                <img class="is-rounded" src="{{ asset('/storage/images/'. $user->punyaProfile->img_photo ) }}">
-            </a>
+                <a href="{{ route('userprofile.photo') }}">
+                    <img class="is-rounded"
+                        src="{{ asset('/storage/images/'. $user->punyaProfile->img_photo ) }}">
+                </a>
             @else
 
-            <a href="{{ route('userprofile.photo') }}">
-                <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
-            </a>
+                <a href="{{ route('userprofile.photo') }}">
+                    <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
+                </a>
 
             @endif
 
@@ -32,20 +33,36 @@
 
         <br>
         <p class="title is-3 ">{{ $user->name }}</p>
-        <p class="subtitle">
-            {{ $user->email }}
+        <small>{{ $user->email }}</small>
 
+        <br>
+        @if(Auth::user()->punyaSeller)
+
+            <small>{{ $user->punyaSeller->name }}</small>
+
+        @else
+
+            <small>Consumer</small>
+        @endif
+
+
+        <!-- 
             <span class="tag is-info">
                 {{ $user->hasRole('customer') ? 'User' : 'Admin' }}
-                <!-- 
-                -->
             </span>
+            
+        -->
+        <br>
+        @if(Auth::user()->punyaProfile)
 
-            <span class="tag is-info">
-                {{ $user->punyaProfile(null) ? '' : $user->punyaProfile->gender }}
-            </span>
-        </p>
+            <small>
+                {{ $user->punyaProfile->gender ? 'Female' : 'Male' }}
+            </small>
 
+        @endif
+
+
+        <br>
         <a href="{{ route('userprofile.edit', $user) }}" class="button is-rounded is-small">
             <span class="icon">
                 <i class="fas fa-edit"></i>
@@ -57,34 +74,19 @@
         </p>
 
         <aside class="menu container">
-            <p class="menu-label">
-                My Menu
-            </p>
-            <ul class="menu-list">
-                <li>
-                    <a id="open-modal" class="button is-primary modal-button">Launch image modal</a>
-                </li>
-                <li><a>Order</a></li>
-                <li><a>Transaction History</a></li>
-            </ul>
-
 
             <p class="menu-label">
-                Administration
+                Menu
             </p>
             <ul class="menu-list">
-                <li><a>Team Settings</a></li>
+                <li><a>My Store</a></li>
                 <li>
-                    <a class="is-active">Manage Your Team</a>
+                    <a class="is-active" href="{{ url('/products') }}">Products</a>
                     <ul>
-                        <li><a>Members</a></li>
-                        <li><a>Plugins</a></li>
-                        <li><a>Add a member</a></li>
+                        <li><a href="{{ url('/products/create') }}">Add Products</a></li>
+                        <li><a>Show Products</a></li>
                     </ul>
                 </li>
-                <li><a>Invitations</a></li>
-                <li><a>Cloud Storage Environment Settings</a></li>
-                <li><a>Authentication</a></li>
             </ul>
 
         </aside>

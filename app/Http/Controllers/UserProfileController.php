@@ -21,11 +21,6 @@ use App\Seller;
 class UserProfileController extends Controller
 {
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         //
@@ -33,23 +28,13 @@ class UserProfileController extends Controller
         return view('user.profile', compact('user'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function photo()
     {
         //
         return view('user.photo');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function uploadPhoto(Request $request)
     {
         //
@@ -70,23 +55,11 @@ class UserProfileController extends Controller
         return redirect()->route('userprofile.index')->with('status', 'Item created successfully');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit()
     {
         //mengambil model User dengan di buat alias variabel $user
@@ -97,8 +70,9 @@ class UserProfileController extends Controller
     }
 
 
-    public function update(Request $user, $id)
+    public function update(Request $user)
     {
+        $id = Auth::id();
         $user = Auth::user();
         $userprofile = $user->punyaProfile;
 
@@ -126,16 +100,6 @@ class UserProfileController extends Controller
         return redirect()->back()->with("status", "Profil berhasil diupdate.");
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 
     public function signupSeller()
     {
@@ -157,7 +121,7 @@ class UserProfileController extends Controller
 
             $seller->user_id = $id;
 
-            $seller->name = 'This Is Name Seller';
+            $seller->name = "";
 
             $user->punyaSeller()->save($seller);
 
@@ -180,6 +144,9 @@ class UserProfileController extends Controller
     {
         return view('auth.passwords.change');
     }
+
+
+    
 
     public function updatePassword(Request $request)
     {

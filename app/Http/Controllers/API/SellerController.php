@@ -24,7 +24,6 @@ class SellerController extends Controller
     public function show($id)
     {
         //
-
             $seller = Seller::find($id);
             
             return response()->json([
