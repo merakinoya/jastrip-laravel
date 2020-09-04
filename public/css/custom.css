@@ -1,0 +1,235 @@
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+/* -------- // Extra small devices (portrait phones, 0 / less than 360px) ------ */
+@media (min-width: 200px) and (max-width: 575.98px) {
+}
+
+/* -------- CUSTOM FROM BOOTSTRAP---------- */
+
+.mt-6 {
+    margin-top: 6rem;
+}
+
+.mt-7 {
+    margin-top: 7rem;
+}
+
+.jumbotron {
+    padding: 4rem 1rem;
+    margin-bottom: 6rem;
+    background-color: #e9ecef;
+    border-radius: 0.3rem;
+}
+@media (min-width: 600px) {
+    .jumbotron {
+        padding: 12rem 6rem;
+    }
+}
+
+.dropdown-toggle {
+    white-space: nowrap;
+}
+.dropdown-toggle::after {
+    display: inline-block;
+    margin-left: 0.255em;
+    margin-top: auto;
+    margin-bottom: auto;
+    vertical-align: 0.255em;
+    content: "";
+    border-top: 0.3em solid;
+    border-right: 0.3em solid transparent;
+    border-bottom: 0;
+    border-left: 0.3em solid transparent;
+}
+.dropdown-toggle:empty::after {
+    margin-left: 0;
+}
+
+
+/* -------- CUSTOM Sendiri---------- */
+
+.hero-illustration {
+    height: 52rem;
+
+    background-image: url("https://jastrip.coretanstudio.com/img/illustration.svg");
+    background-position: right;
+    background-repeat: no-repeat;
+    position: relative;
+}
+/* Extra small devices (portrait phones, < less than 0px - 576px) */
+@media (max-width: 575.98px) {
+    .hero-illustration {
+        background-image: url("https://jastrip.coretanstudio.com/img/illustration.svg");
+        background-position: right;
+        background-size: 16rem;
+        background-repeat: no-repeat;
+        position: relative;
+    }
+}
+
+.hero {
+    padding: 12rem 3rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+
+    background-image: linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 1) 0%,
+            rgba(255, 255, 255, 1) 3%,
+            rgba(255, 255, 255, 0) 20%,
+            rgba(255, 255, 255, 0) 100%
+        ),
+        url("https://source.unsplash.com/fItRJ7AHak8/1900x900");
+    background-color: #cccccc;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+/** ----- IMAGES SETTING ------*/
+
+.image-uploaded {
+    width: 128px;
+    height: 128px;
+    object-fit: cover;
+}
+
+.img-object-fit {
+    width: 100%;
+    height: 100%;
+    object-position: center;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.card-img-top {
+    flex-shrink: 0;
+    width: 100%;
+    height: 198px;
+    object-position: center;
+    object-fit: cover;
+}
+
+.foto-produk {
+    padding-right: 18px;
+    padding-left: 18px;
+}
+@media (max-width: 575.98px) {
+    .foto-produk {
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+}
+
+@supports (position: sticky) {
+    .sticky-top-produk {
+        position: sticky;
+        top: 14%;
+        z-index: 1020;
+    }
+
+    .sticky-top-tabs {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 12%;
+        z-index: 1020;
+    }
+}
+
+.placeholder-image {
+    background-color: #999999;
+    height: 24px;
+    width: 24px;
+    border-radius: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.placholder-text {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+}
+
+.margin-judul-page {
+    margin-top: 8%;
+}
+
+.position-absolute-custom {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+}
+
+/* --------------- FOOTER CUSTOM  --------------- */
+.custom-footer {
+    padding: 2.5rem 0;
+    color: #999;
+    text-align: center;
+    background-color: #f9f9f9;
+    border-top: 0.01rem solid #e5e5e5;
+}
+.custom-footer p:last-child {
+    margin-bottom: 0;
+}
+
+/* ------------ NAV PILLS CUSTOM ------------- */
+.nav-pills .nav-link {
+    border-radius: 9.25rem;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+    color: #17b8b0;
+    background-color: rgb(23, 184, 176, 0.1);
+}
+
+/*-------------- NAV PILLS SCROLLER ------------ */
+
+.nav-scroller {
+    position: relative;
+    z-index: 2;
+    overflow-y: hidden; /* Hide vertical scrollbar */
+}
+
+.nav-scroller .nav {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    padding-bottom: 1rem;
+    margin-top: -1px;
+    overflow-x: auto;
+    color: rgba(255, 255, 255, 0.75);
+    text-align: left;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+}
+
+.nav-scroller .nav-link {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    font-size: 0.875rem;
+    color: #6c757d;
+}
+
+.nav-scroller .nav-link:hover {
+    color: #16a79f;
+}
+
+.nav-scroller .active {
+    font-weight: 500;
+    color: #343a40;
+}

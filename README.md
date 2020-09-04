@@ -7,6 +7,14 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
+## References
+
+I learn from many references, such as:
+
+- [Socialite, Tutorial Medium by Kiddy.xyz](https://medium.com/@kiddy.xyz/tutorial-login-laravel-dengan-socialite-facebook-twitter-google-github-linkedin-5743fb97fa2b).
+- [Socialite Tutorial by tutsmake.com](https://www.tutsmake.com/laravel-6-google-login-tutorial-with-socialite-demo-example/).
+
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:

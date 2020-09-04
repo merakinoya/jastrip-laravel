@@ -3,6 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
+
+use App\User;
+use App\Seller;
+use App\Products;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,8 +19,12 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', function ()
+{
+    $pagename = 'Featured Trips';
+    $products = Products::all();
+
+    return view('home', compact('products', 'pagename'));
 });
 
 Auth::routes();
@@ -28,25 +37,28 @@ Route::resources([
     'userprofile' => 'UserProfileController'
 ]);
 
-Route::get('photo', 'UserProfileController@photo')->name('userprofile.photo');
-Route::post('/userprofile', 'UserProfileController@uploadPhoto')->name('userprofile.uploadPhoto');
+Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider');
+Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
 
 
-Route::get('activate-seller', 'UserProfileController@signupSeller')->name('signup-seller');
-Route::post('/activate-seller', 'UserProfileController@activateSeller')->name('activate-seller-now');
-
-/* 
-Route::get('userprofile/edit',[
-    'as' => 'userprofile.edit', 
-    'uses' => 'UserProfileController@edit'
-    ]);
+// User needs to be authenticated to enter here.
+Route::middleware(['auth'])->group(function () {
     
-Route::patch('usersprofile/{user}/update',[
-    'as' => 'usersprofile.update',
-    'uses' => 'UserProfileController@update'
-    ]);
-*/ 
+    Route::get('products/create', 'ProductsController@create');
+    Route::get('products/{id}/edit', 'ProductsController@edit');
 
-//Ubah profil user
-//Route::get('/userprofile/edit','UserProfileController@edit')->name('userprofile.edit');
-//Route::patch('/userprofile','UserProfileController@update')->name('userprofile.update');
+
+
+    Route::get('sellerprofile', 'SellerController@edit')->name('sellerprofile.edit');
+
+    //Photo Profile User
+    Route::get('photo', 'UserProfileController@photo')->name('userprofile.photo');
+    Route::post('photo', 'UserProfileController@uploadPhoto')->name('userprofile.uploadPhoto');
+
+    Route::post('/userprofile','UserProfileController@updatePassword')->name('userprofile.updatePassword');
+    
+    // Activate Seller
+    Route::get('activate-seller', 'UserProfileController@signupSeller')->name('signup-seller');
+    Route::post('/activate-seller', 'UserProfileController@activateSeller')->name('activate-seller-now');
+});
+

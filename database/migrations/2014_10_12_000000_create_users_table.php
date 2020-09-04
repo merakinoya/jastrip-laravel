@@ -18,10 +18,24 @@ class CreateUsersTable extends Migration
 
             $table->string('name');
             
-            $table->string('email')->unique();
+            $table->string('email')->nullable();
+            
+            /** If want using Socialite
+             * $table->string('email')->nullable()->unique();
+             * $table->string('provider')->nullable();
+             * $table->string('provider_id')->nullable();
+             * $table->string('password')->nullable();;
+             */
+            
+            $table->string('provider')->nullable();
+            $table->string('provider_id')->nullable();
+
+    
             $table->timestamp('email_verified_at')->nullable();
 
-            $table->string('password');
+            $table->string('password')->nullable();;
+
+            $table->string('api_token', 80)->unique()->nullable()->default(null);
 
             $table->rememberToken();
             $table->timestamps();

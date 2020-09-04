@@ -1,26 +1,34 @@
-$(document).ready(function () {
+// Navbar Mobile Hamburger Menu
+$(function () {
+    'use strict'
+  
+    $('[data-toggle="offcanvas"]').on('click', function () {
+      $('.offcanvas-collapse').toggleClass('open')
+    })
+  })
 
-    // Check for click events on the navbar burger icon
-    $(".navbar-burger").click(function () {
 
-        // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-        $(".navbar-burger").toggleClass("is-active");
-        $(".navbar-menu").toggleClass("is-active");
-    });
+
+// JQuery Upload Image Preview
+function readURL(input) {
+    if (input.files && input.files[0])
+    {
+        var reader = new FileReader();
+        reader.onload = function (e) 
+        {
+            $('#imagePreview').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]); // convert to base64 string
+    }
+}
+
+// Read Preview Upload
+$("#imgInp").change(function () {
+    readURL(this);
 });
 
-// SCROLL to ID
-$("a[href^='#']").click(function (e) {
-    e.preventDefault();
 
-    var position = $($(this).attr("href")).offset().top;
-
-    $("body, html").animate({
-        scrollTop: position
-    } /* speed */ );
-});
-
-// Upload Files Bulma
+// Get Class File-Name Uploaded
 const fileInput = document.querySelector('#file-js-example input[type=file]');
 fileInput.onchange = () => {
     if (fileInput.files.length > 0) {
@@ -29,20 +37,12 @@ fileInput.onchange = () => {
     }
 }
 
-// JQuery Upload Preview
-function readURL(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
+// SCROLL to ID
+$("a[href^='#']").click(function (e) {
+    e.preventDefault();
 
-        reader.onload = function (e) {
-            $('#imagePreview').attr('src', e.target.result);
-        }
-
-        reader.readAsDataURL(input.files[0]); // convert to base64 string
-    }
-}
-
-// Read Preview Upload
-$("#imgInp").change(function () {
-    readURL(this);
+    var position = $($(this).attr("href")).offset().top;
+    $("body, html").animate({
+        scrollTop: position
+    } /* speed */);
 });

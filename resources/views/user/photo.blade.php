@@ -2,68 +2,57 @@
 
 @section('content')
 
-@if (session('status'))
-<div id="snackbar" class="notification is-info is-light">
-    <button class="delete"></button>
-    <strong>Message</strong>
-    {{ session('status') }}
-</div>
-@endif
+
+<section class="container">
+
+    <nav aria-label="breadcrumb" class="container mt-4">
+        <ol class="breadcrumb bg-white">
+            <li class="breadcrumb-item">
+                <a href="{{ url()->previous() }}">< Back</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">{{ $pagename }}</li>
+        </ol>
+    </nav>
 
 
-
-<form method="POST" action="{{ route('userprofile.uploadPhoto') }}" enctype="multipart/form-data">
-    @csrf
-
-    <div class="columns">
-        <div class="column is-2">
-
-            @if (Auth::user()->punyaProfile)
-            <img id="imagePreview" class="image-uploaded" src="{{ asset('/storage/images/'. Auth::user()->punyaProfile->img_photo ) }}">
-            @else
-            <img id="imagePreview" class="image-uploaded" src="https://bulma.io/images/placeholders/128x128.png"
-                style="object-fit: cover;" alt="Image Upload">
-            @endif
-        </div>
-
-        <div class="column">
-
-            <div class="field">
-                <label class="label">Upload</label>
-
-                <div id="file-js-example" class="file has-name">
-                    <label class="file-label">
-                        <input type="file" name="img_photo" id="imgInp" class="file-input">
-
-                        <span class="file-cta">
-                            <span class="file-icon">
-                                <i class="fas fa-upload"></i>
-                            </span>
-                            <span class="file-label">
-                                Choose a file…
-                            </span>
-                        </span>
-                        <span class="file-name">
-                            No file uploaded
-                        </span>
-                    </label>
-                </div>
-
-            </div>
+    @if (session('status'))
+    <div id="snackbar" class="notification is-info is-light">
+        <button class="delete"></button>
+        <strong>Message</strong>
+        {{ session('status') }}
+    </div>
+    @endif
 
 
+    <div class="container">
+        <form method="POST" action="{{ route('userprofile.uploadPhoto') }}" enctype="multipart/form-data">
+            @csrf
 
-            <div class="field">
-                <div class="control">
-                    <button type="submit" class="level-right button is-primary">Simpan Photo</button>
+            <div class="form-group">
+                @if(!Auth::user()->punyaProfile->img_photo)
+                <img id="imagePreview" class="image-uploaded mb-4" src="https://bulma.io/images/placeholders/128x128.png" style="border: 1px #000000; border-radius: 8px; object-fit: cover;" alt="Image Upload" />
+                @else
+                @if(file_exists( public_path().'/uploads/images/'.Auth::user()->punyaProfile->img_photo ))
+                <img id="imagePreview" class="image-uploaded mb-4" src="{{ asset('/uploads/images/'. Auth::user()->punyaProfile->img_photo ) }}" style="border: 1px #000000; border-radius: 8px; object-fit: cover;" alt="Image Upload" />
+                @else
+                <img id="imagePreview" class="image-uploaded mb-4" src="{{ Auth::user()->punyaProfile->img_photo }}" style="border: 1px #000000; border-radius: 8px; object-fit: cover;" alt="Image Upload" />
+                @endif
+                @endif
+
+                <div id="file-js-example" class="custom-file">
+                    <input type="file" name="img_photo" id="imgInp" class="custom-file-input @error('img') is-invalid @enderror" required />
+                    <label class="file-name custom-file-label" for="imgInp">{{ Auth::user()->punyaProfile->img_photo }}</label>
+
+                    @error('img')
+                    <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                    @enderror
                 </div>
             </div>
 
-        </div>
+            <button type="submit" class="btn btn-primary">Simpan Photo</button>
+        </form>
     </div>
 
-    </div>
-
-</form>
+</section>
 
 @endsection

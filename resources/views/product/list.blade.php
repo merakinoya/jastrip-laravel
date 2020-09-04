@@ -2,80 +2,59 @@
 
 @section('content')
 
-@if($message = Session::get('success'))
+<section class="container">
+
+    @if($message = Session::get('status'))
     <p>{{ $message }}</p>
-@endif
+    @endif
 
-
-<div class="columns">
-    <div class="column has-text-left">
-        <h1 class="title">Bulma Card Layout Template</h1><br>
+    <div class="row mb-4 mt-4">
+        <div class="col">
+            <h2 class="">{{ $pagename }}</h2>
+        </div>
     </div>
 
-    <div class="column has-text-right">
-      <h1 class="title"><a href="{{ url('/products/create') }}">+ Add New</a></h1><br>
-  </div>
-</div>
+    <div class="row">
+        @foreach($products as $dataproduct)
 
-<div id="app" class="row columns is-multiline">
+        <div class="col-md-4 col-sm-6 col-12">
+            <div class="card border-0 shadow rounded-lg mb-4">
+                <a class="position-absolute-custom text-white" href="" data-toggle="tooltip" data-placement="top" title="Wishlist">
+                    <i data-feather="{{ ( Auth::user()->punyaSeller->id != $dataproduct->seller_id )? "heart" : "edit" }}"></i>
+                </a>
 
-    @foreach($productinhtml as $dataproduct)
+                @if(!$dataproduct->img)
+                <img class="card-img-top rounded-top" src="https://source.unsplash.com/x9I-6yoXrXE" alt="Product Photo" />
+                @else
+                <img class="card-img-top rounded-top" src="{{ asset('/uploads/products/'. $dataproduct->img )}}" alt="Product Photo" />
+                @endif
 
-        <div v-for="card in cardData" key="card.id" class="column is-4">
-            <div class="card large">
-                <div class="card-image is-16by9">
-                    <figure class="image">
+                <div class="card-body">
 
-            
-                        <a href="">
-                          <img 
-                          style="min-height:120px; max-height:200px; object-fit: cover;"
-
-                          @if(!$dataproduct->img)
-                          
-                          src="https://bulma.io/images/placeholders/1280x960.png" 
-                          @else
-
-                          src="{{ asset('/storage/products/'. $dataproduct->img ) }}"
-                          @endif
-                          
-                          ></a>
-
-                    </figure>
+                    <span class="badge badge-info mb-2 mr-2">Camp</span>
+                    <h4 class="card-title mb-1 font-weight-bold text-black text-capitalize text-truncate">{{ $dataproduct->name }}</h4>
+                    <p><small>2 days</small> • <small>10 orang</small>
+                        <br>
+                        <small>{{ date('d M Y',strtotime($dataproduct->start_at)) }}</small>-<small>{{ date('d M Y',strtotime($dataproduct->finish_at)) }}</small>
+                    </p>
+                    <p class="card-text text-muted text-truncate">{{ $dataproduct->facility }}
+                        <a href="{{ route('products.show', $dataproduct->id) }}" class="text-muted stretched-link">detail</a>
+                    </p>
                 </div>
-                <div class="card-content">
-                    <div class="media">
-                      <!--
-                        <div class="media-left">
-                            <figure class="image is-48x48">
-                                <img src="https://bulma.io/images/placeholders/48x48.png" alt="Image">
-                            </figure>
-                        </div>
-                        -->
-                        <div class="media-content">
-                            <p class="title is-4 no-padding">{{ $dataproduct->name }} </p>
-                            <p>
-                                <span class="title is-6">
-                                    <a href="#"> Data </a> 
-                                  </span>
-                              </p>
-                            <p class="subtitle is-6">Subtot</p>
-                        </div>
-                    </div>
-                    <a href="{{ route('products.edit', $dataproduct->id) }}" class="btn btn-sm btn-success">Edit</a>
-                    <div class="content has-text-right">
-                        Content
-                        <div class="background-icon"><span class="icon-twitter"></span></div>
-                    </div>
+
+                <div class="card-footer">
+                    <small class="text-black-50">Updated {{ date('d M Y',strtotime($dataproduct->updated_at)) }} </small>
+
+                    <a href="{{ route('products.edit', $dataproduct->id) }}" class="btn stretched-link  {{ ( Auth::user()->punyaSeller->id != $dataproduct->seller_id )? "d-none" : "" }}" style="position: relative;">Edit</a>
+                    <button class="btn btn-outline-dark float-right">Contact</button>
                 </div>
             </div>
         </div>
 
+        @endforeach
+    </div> <!-- /row-->
 
-    @endforeach
-
-</div>
-
+</section>
 
 
 

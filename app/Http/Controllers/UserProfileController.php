@@ -16,6 +16,7 @@ use App\User;
 use App\Role;
 use App\UserProfile;
 use App\Seller;
+use App\Products;
 
 
 class UserProfileController extends Controller
@@ -24,27 +25,33 @@ class UserProfileController extends Controller
     public function index()
     {
         //
+        $id = Auth::id();
         $user = Auth::user();
-        return view('user.profile', compact('user'));
+
+        $words = explode(" ", $user->name);
+        $acronym = "";
+
+        return view('user.profile', compact('user', 'words', 'acronym'));
     }
 
     public function photo()
     {
         //
-        return view('user.photo');
+        $pagename = 'Upload Photo';
+
+        return view('user.photo', compact('pagename'));
     }
 
 
     public function uploadPhoto(Request $request)
     {
-        //
         $user = Auth::user();
 
         if ($request->hasFile('img_photo')) {
             $filename = $request->img_photo->getClientOriginalName();
 
             // Save files to directory folder
-            $request->img_photo->storeAs('/images', $filename, 'public');
+            $request->img_photo->storeAs('/images', $filename, 'public_uploads');
 
             // Save name file to Database
             $user->punyaProfile->update([
@@ -63,10 +70,11 @@ class UserProfileController extends Controller
     public function edit()
     {
         //mengambil model User dengan di buat alias variabel $user
+        $pagename = 'Edit Profile';
         $user = Auth::user();
         $userprofile = $user->punyaProfile;
 
-        return view('user.edit', compact('user', 'userprofile'));
+        return view('user.edit', compact('user', 'userprofile', 'pagename'));
     }
 
 
@@ -101,12 +109,14 @@ class UserProfileController extends Controller
     }
 
 
+
+    /* ------ ACTIVATE JOIN SELLER---------- */
+
     public function signupSeller()
     {
         //
         return view('seller.activate');
     }
-
 
     public function activateSeller()
     {
@@ -146,27 +156,43 @@ class UserProfileController extends Controller
     }
 
 
-    
-
     public function updatePassword(Request $request)
     {
-        if (!(Hash::check($request->get('current-password'), Auth::user()->password))) {
-            return redirect()->back()->with('error', "Password lama ngga pas");
+        if(Auth::user()->password == null) 
+        {
+
+            $validatedData = $request->validate([
+                'new-password' => 'required|string|min:8|confirmed',
+            ]);
+
+            $user = Auth::user();
+            $user->password = Hash::make($request->get('new-password'));
+            $user->save();
+
+            return redirect()->back()->with('status', "Password Berhasil diatur");
         }
+        else 
+        {
+            if (!(Hash::check($request->get('current-password'), Auth::user()->password))) 
+            {
+                return redirect()->back()->with('error', "Password lama tidak esuai");
+            }
 
-        if (strcmp($request->get('current-password'), $request->get('new-password')) == 0) {
-            return redirect()->back()->with('error', "Password harus beda dengan password lama");
+            if (strcmp($request->get('current-password'), $request->get('new-password')) == 0)
+            {
+                return redirect()->back()->with('error', "Password baru harus berbeda dari password lama");
+            }
+
+            $validatedData = $request->validate([
+                'current-password' => 'required',
+                'new-password' => 'required|string|min:8|confirmed',
+            ]);
+
+            $user = Auth::user();
+            $user->password = bcrypt($request->get('new-password'));
+            $user->save();
+
+            return redirect()->back()->with('status', "Password berhasil diubah");
         }
-
-        $validatedData = $request->validate([
-            'current-password' => 'required',
-            'new-password' => 'required|string|min:6|confirmed',
-        ]);
-
-        $user = Auth::user();
-        $user->password = bcrypt($request->get('new-password'));
-        $user->save();
-
-        return redirect()->back()->with("success", "Password berhasil diubah");
     }
 }

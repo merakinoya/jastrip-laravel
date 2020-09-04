@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'provider', 'provider_id'
     ];
 
     /**
@@ -67,6 +67,23 @@ class User extends Authenticatable
     public function punyaSeller()
     {
         return $this->hasOne('App\Seller','user_id','id');
+    }
+
+    public function punyaProducts()
+    {
+        return $this->hasMany('App\Products','user_id','id');
+    }
+
+    public function punyaSellerAndProduct()
+    {
+        return $this->hasOneThrough(
+            'App\Products',
+            'App\Seller',
+            'user_id', // Foreign key on seller table...
+            'seller_id', // Foreign key on products table...
+            'id', // Local key on users table...
+            'id' // Local key on seller table...
+        );
     }
 
 

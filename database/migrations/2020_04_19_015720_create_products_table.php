@@ -18,19 +18,28 @@ class CreateProductsTable extends Migration
 
             /* Custom Column */
             $table->integer('seller_id')->unsigned();
+            $table->integer('user_id')->unsigned();
 
             $table->string('name');
+            $table->longText('description')->nullable();
+            $table->decimal('price', 16, 0)->nullable();
+            $table->integer('total_participant')->nullable();
 
-            $table->string('facility');
+            $table->dateTime('start_at')->nullable();
+            $table->dateTime('finish_at')->nullable();
 
-            $table->dateTime('start_at');
-            $table->dateTime('finish_at');
-            $table->decimal('price', 13, 0);
+
+            $table->string('meet_point')->nullable();
+            $table->longText('facility')->nullable();
+            $table->longText('terms_condition')->nullable();
+
+            $table->string('img')->nullable();
 
             $table->timestamps();
 
             /* Relation Table */
             $table->foreign('seller_id')->references('id')->on('sellers')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

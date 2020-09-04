@@ -2,114 +2,105 @@
 
 @section('content')
 
-<div class="columns">
-    <div class="column has-text-left">
-        <h1 class="title">Bulma Card Layout Template</h1><br>
-    </div>
-    <div class="column has-text-right">
-        <h1 class="title"><a href="{{ url('/products/create') }}">+ Add New</a></h1><br>
-    </div>
-</div>
-
-<div class="columns">
 
 
-    <form method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data"
-        class="column is-three-fifths is-offset-one-fifth">
+<section class="container">
+
+    <h1 class="mb-5">
+        <a href="{{ url('/products/create') }}">+ Add New</a>
+    </h1>
+
+    <form method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data">
         @csrf
 
-        <div class="field">
-            <label class="label" for="">Event Name</label>
-            <div class="control">
-                <input id="name" type="text" class="input @error('name') is-invalid @enderror" name="name" required
-                    autocomplete="name" placeholder="Masukkan nama produk" autofocus>
+        <div class="form-group">
+            <label for="name">Event Name</label>
+            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" required autocomplete="name" placeholder="Judul Trips / Event" autofocus>
+            @error('name')
+            <span class="invalid-feedback" role="alert">{{ $message }}</span>
+            @enderror
+        </div>
 
-                @error('name')
-                    <strong>{{ $message }}</strong>
+        <div class="form-group">
+            <label for="">Description</label>
+            <textarea name="description" id="description" class="form-control @error('description') is-invalid @enderror" autocomplete="description" placeholder="Berikan gambaran Perjalanan yang akan peserta kunjungi" autofocus></textarea>
+            @error('description')
+            <span class="invalid-feedback" role="alert">{{ $message }}</span>
+            @enderror
+        </div>
+
+        <div class="row">
+            <div class="form-group col">
+                <label for="">Price</label>
+                <input name="price" id="price" type="number" class="form-control @error('price') is-invalid @enderror" placeholder="Rp" />
+                @error('price')
+                <span class="invalid-feedback" role="alert">{{ $message }}</span>
                 @enderror
-
             </div>
-        </div>
 
-        <div class="field">
-            <label class="label" for="">Facility</label>
-            <div class="control">
-
-                <textarea name="facility" id="name" class="textarea @error('facility') is-invalid @enderror"
-                    autocomplete="facility" placeholder="Masukkan fasilitas" autofocus></textarea>
-
-                @error('facility')
-                    <strong>{{ $message }}</strong>
+            <div class="form-group col-md-4">
+                <label for="">Total Participant</label>
+                <input name="total_participant" id="total_participant" type="number" class="form-control @error('total_participant') is-invalid @enderror" placeholder="Jumlah Peserta" />
+                @error('total_participant')
+                <span class="invalid-feedback" role="alert">{{ $message }}</span>
                 @enderror
             </div>
         </div>
 
-        <div class="columns">
-
-            <div class="field column">
-                <label class="label" for="">Strat Date</label>
-                <div class="control">
-                    <input name="start_at" id="start_at" type="date" class="input">
-
-
-                </div>
+        <div class="row">
+            <div class="form-group col">
+                <label for="">Start Date</label>
+                <input name="start_at" id="start_at" type="date" class="form-control">
             </div>
 
-            <div class="field column">
-                <label class="label" for="">Finish Date</label>
-                <div class="control">
-                    <input name="finish_at" id="finish_at" type="date" class="input">
-
-
-                </div>
+            <div class="form-group col">
+                <label for="">Finish Date</label>
+                <input name="finish_at" id="finish_at" type="date" class="form-control">
             </div>
         </div>
 
-        <div class="field">
-            <label class="label" for="">Price</label>
-            <div class="control">
-                <input name="price" id="price" type="number" class="input" placeholder="Rp." >
+        <div class="form-group">
+            <label for="meet_point">Meet Point</label>
+            <input  name="meet_point" id="meet_point" type="text" class="form-control @error('meet_point') is-invalid @enderror" required autocomplete="meet_point" placeholder="Tentukan Nama Lokasi Titik Temu Peserta" autofocus>
+            @error('meet_point')
+            <span class="invalid-feedback" role="alert">{{ $message }}</span>
+            @enderror
+        </div>
+
+        <div class="form-group">
+            <label for="">Facility</label>
+            <textarea name="facility" id="textarea-editor" class="form-control @error('facility') is-invalid @enderror" autocomplete="facility" placeholder="Masukkan fasilitas" autofocus></textarea>
+            @error('facility')
+            <span class="invalid-feedback" role="alert">{{ $message }}</span>
+            @enderror
+        </div>
+
+        <div class="form-group">
+            <label for="">Terms & Condition</label>
+            <textarea name="terms_condition" id="terms_condition" class="form-control @error('terms_condition') is-invalid @enderror" autocomplete="terms_condition" placeholder="Syarat & Ketentuan Trips" autofocus></textarea>
+            @error('terms_condition')
+            <span class="invalid-feedback" role="alert">{{ $message }}</span>
+            @enderror
+        </div>
+
+
+
+
+        <div class="form-group">
+            <img id="imagePreview" class="image-uploaded mb-4" style="border: 1px #000000; border-radius: 8px;" src="https://bulma.io/images/placeholders/128x128.png" style="object-fit: cover;" alt="Image Upload">
+
+            <div id="file-js-example" class="custom-file">
+                <input type="file" name="img" id="imgInp" class="custom-file-input" required />
+                <label class="file-name custom-file-label" for="imgInp">No file uploaded</label>
+
+                @error('img')
+                <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                @enderror
             </div>
         </div>
 
-        <div class="columns">
-            <div class="column is-2">
 
-                <img id="imagePreview" class="image-uploaded" src="https://bulma.io/images/placeholders/128x128.png"
-                style="object-fit: cover;" alt="Image Upload">
-
-            </div>
-    
-            <div class="column">
-    
-                <div class="field">
-                    <label class="label">Upload</label>
-    
-                    <div id="file-js-example" class="file has-name">
-                        <label class="file-label">
-                            <input type="file" name="img" id="imgInp" class="file-input">
-    
-                            <span class="file-cta">
-                                <span class="file-icon">
-                                    <i class="fas fa-upload"></i>
-                                </span>
-                                <span class="file-label">
-                                    Choose a file…
-                                </span>
-                            </span>
-                            <span class="file-name">
-                                No file uploaded
-                            </span>
-                        </label>
-                    </div>
-    
-                </div>
-    
-            </div>
-        </div>
-        
-
-        <!--
+        <!-- Seller
         <div class="field">
             <label class="label" for="">Seller</label>
             <div class="control">
@@ -122,17 +113,14 @@
         </div>
         -->
 
-        <br>
-        <div class="field">
-            <div class="control">
-                <button type="submit" class="button is-medium is-primary">
-                    Simpan
-                </button>
-            </div>
-        </div>
+
+        <button type="submit" class="btn btn-primary mt-1">
+            Simpan
+        </button>
 
     </form>
-</div>
+
+</section>
 
 
 @endsection

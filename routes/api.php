@@ -33,6 +33,12 @@ Route::post('seller',       'API\SellerController@create');
 Route::put('seller/{id}',   'API\SellerController@update');
 Route::delete('seller/{id}','API\SellerController@delete');
 
+Route::get('product',        'API\ProductsController@index');
+Route::get('product/{id}',   'API\ProductsController@show');
+Route::post('product',       'API\ProductsController@create');
+Route::put('product/{id}',   'API\ProductsController@update');
+Route::delete('product/{id}','API\ProductsController@delete');
+
 
 /** CARA ROUTE GABUNG CONTROLLER
  * 

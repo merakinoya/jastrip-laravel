@@ -76,7 +76,7 @@ class RegisterController extends Controller
         ]);
         
         //Attach role user Customer
-        $role_user  = Roles::where('id', '2')->first();
+        $role_user  = Roles::where('id', '1')->first();
         $user->roles()->attach($role_user);
 
         //Add relation to UserProfile

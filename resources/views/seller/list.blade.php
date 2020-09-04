@@ -1,37 +1,44 @@
 @extends('layouts.app')
-
 @section('content')
 
-<!-- Place Your Code HTML in here-->
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Seller Name</th>
-            <th>Products</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach($seller as $dataseller)
-        <tr>
-            <td>{{ $dataseller->name }}</td>
-
-            <td>
-                @foreach ($dataseller->punyaProducts as $dataproduk)
-                {{ $dataproduk->name }}
-                @endforeach
-            </td>
-
-        </tr>
-        @endforeach
-    </tbody>
-
-</table>
+<section class="container">
+    
+    @if ($message = Session::get('success'))
+    <p>{{ $message }}</p>
+    @endif
 
 
-@if ($message = Session::get('success'))
-<p>{{ $message }}</p>
-@endif
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Seller Name</th>
+                <th>User ID</th>
+                <th>Products</th>
+            </tr>
+        </thead>
+        <tbody>
 
+            @foreach($sellers as $dataSeller)
+            <tr>
+                <td>
+                    {{ (!$dataSeller->name )? "Unknown" : $dataSeller->name }}
+                </td>
+                <td>{{ $dataSeller->user_id }}</td>
+
+                <td>
+                    @foreach ($dataSeller->punyaProducts as $dataProduct)
+                    {{ $dataProduct->name }} <br>
+                    @endforeach
+                </td>
+
+            </tr>
+            @endforeach
+        </tbody>
+
+    </table>
+
+
+</section>
 
 @endsection
