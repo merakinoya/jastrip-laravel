@@ -106,7 +106,7 @@
             @endif
 
             <div id="file-js-example" class="custom-file">
-                <input type="file" name="img" id="imgInp" class="custom-file-input @error('img') is-invalid @enderror" required />
+                <input type="file" name="img" value="{{ $product->img }}" id="imgInp" class="custom-file-input @error('img') is-invalid @enderror" />
                 <label class="file-name custom-file-label text-truncate" for="imgInp">{{ $product->img }}</label>
 
                 @error('img')
@@ -122,6 +122,12 @@
 
     </form>
 </section>
+
+
+<script>
+    CKEDITOR.replace( 'facility' );
+</script>
+
 
 
 @endsection

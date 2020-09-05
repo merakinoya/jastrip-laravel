@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\User;
+use App\Seller;
+use App\Products;
+
 class HomeController extends Controller
 {
     /**
@@ -23,6 +27,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $pagename = 'Featured Trips';
+        $products = Products::all();
+        
+        return view('home', compact('products', 'pagename'));
     }
 }

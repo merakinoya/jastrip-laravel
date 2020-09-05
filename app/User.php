@@ -71,7 +71,7 @@ class User extends Authenticatable
 
     public function punyaProducts()
     {
-        return $this->hasMany('App\Products','user_id','id');
+        return $this->hasMany('App\Products','user_id','id')->latest();;
     }
 
     public function punyaSellerAndProduct()

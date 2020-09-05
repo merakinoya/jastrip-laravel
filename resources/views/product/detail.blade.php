@@ -11,7 +11,7 @@
                 <a href="{{ url()->previous() }}" class="">
                     <i data-feather="arrow-left" width="16" height="16"></i> Back</a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">{{ $product->name }}</li>
+            <li class="breadcrumb-item active text-truncate" aria-current="page">{{ $product->name }}</li>
         </ol>
     </nav>
 
@@ -23,7 +23,31 @@
 
                     <div class="carousel-inner carousel-custom">
                         <div class="carousel-item active">
-                            <img src="{{ asset('/uploads/products/'. $product->img )}}" class="img-object-fit" alt="...">
+                            <a data-toggle="modal" data-target="#exampleModal">
+                                <img src="{{ asset('/uploads/products/'. $product->img )}}" class="img-object-fit" alt="PhotoEvent" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">{{ $product->name }}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <img src="{{ asset('/uploads/products/'. $product->img )}}" class="img-object-fit" alt="PhotoEvent" />
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Tutup</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -32,23 +56,24 @@
             <div class="col-md-7">
                 <div class="media">
                     <!--  <img class="align-self-start mr-3 invisible" src="/icon/ic-trip.svg" alt="Generic placeholder image"> -->
-                    <div class="media-body">
+                    <div class="media-body pb-2">
                         <h2 class="font-weight-bold text-black text-capitalize">{{ $product->name }}</h2>
-                        <p>{{ $product->description }}</p>
+                        {{ $product->dipunyaiUser->name }}
+                        <?php echo $product->description ?>
                     </div>
                 </div>
 
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">
+                    <li class="list-group-item px-0">
                         <i data-feather="calendar" class="mr-3"></i>
                         {{ date('d M Y',strtotime($product->start_at)) }} - {{ date('d M Y',strtotime($product->finish_at)) }}
                     </li>
 
-                    <li class="list-group-item">
+                    <li class="list-group-item px-0">
                         <i data-feather="users" class="mr-3"></i>{{ $product->total_participant }} Peserta
                     </li>
 
-                    <li class="list-group-item">
+                    <li class="list-group-item px-0">
                         <i data-feather="map-pin" class="mr-3"></i>Meet Point {{ $product->meet_point }}
                     </li>
                 </ul>
@@ -57,7 +82,7 @@
 
 
                 <h3 class="mb-4">Fasilitas</h3>
-                <dl>{{ $product->facility }}</dl>
+                <dl><?php echo $product['facility'] ?></dl>
 
                 <hr> <!-- Divider -->
 
@@ -77,6 +102,17 @@
 
                 <hr> <!-- Divider -->
 
+                <h3 class="mb-4">Diposting oleh</h3>
+                <ul class="list-unstyled">
+                    <li class="media my-4">
+                        <img class="mr-3 rounded-circle" src="https://source.unsplash.com/b1Hg7QI-zcc/48x48" alt="Generic placeholder image">
+                        <div class="media-body">
+                            <h5 class="mb-1">{{ $product->dipunyaiUser->name }}</h5>
+
+                            <small class="text-muted">Bergabung sejak {{ date('d M Y',strtotime($product->dipunyaiUser->created_at )) }}</small>
+                        </div>
+                    </li>
+                </ul>
                 <!-- 
                 <h3 class="mb-4">Reviews</h3>
                 <ul class="list-unstyled">
@@ -114,9 +150,14 @@
                 <h5 class="mb-0">Rp{{ number_format($product->price, 0, '', '.') }}</h5>
                 <small> /{{ $product->total_participant }} peserta</small>
             </div>
-            <a href="https://wa.me/62{{ (int)Auth::user()->punyaProfile->phone }}?text=I'm%20interested%20in%20your%20car%20for%20sale" target="_blank" class="btn btn-primary btn-lg float-right">
+            <a href="https://wa.me/6282219259952?text=I'm%20interested%20in%20your%20car%20for%20sale" target="_blank" class="btn btn-primary btn-lg float-right">
                 <i data-feather="message-circle"></i> Hubungi
             </a>
+            <!--
+            <a href="https://wa.me/62(int) ?text=I'm%20interested%20in%20your%20car%20for%20sale" target="_blank" class="btn btn-primary btn-lg float-right">
+                <i data-feather="message-circle"></i> Hubungi
+            </a>
+        -->
         </div>
     </nav>
 

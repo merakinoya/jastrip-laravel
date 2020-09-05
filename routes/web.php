@@ -47,8 +47,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('products/create', 'ProductsController@create');
     Route::get('products/{id}/edit', 'ProductsController@edit');
 
-
-
     Route::get('sellerprofile', 'SellerController@edit')->name('sellerprofile.edit');
 
     //Photo Profile User

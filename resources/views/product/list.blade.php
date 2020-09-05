@@ -2,17 +2,13 @@
 
 @section('content')
 
-<section class="container">
+<section class="container pt-4">
 
     @if($message = Session::get('status'))
-    <p>{{ $message }}</p>
+        <p>{{ $message }}</p>
     @endif
 
-    <div class="row mb-4 mt-4">
-        <div class="col">
-            <h2 class="">{{ $pagename }}</h2>
-        </div>
-    </div>
+    <h2 class="display-4 text-black font-weight-bold text-capitalize mb-4">Featured Trips</h2>
 
     <div class="row">
         @foreach($products as $dataproduct)
@@ -37,7 +33,7 @@
                         <br>
                         <small>{{ date('d M Y',strtotime($dataproduct->start_at)) }}</small>-<small>{{ date('d M Y',strtotime($dataproduct->finish_at)) }}</small>
                     </p>
-                    <p class="card-text text-muted text-truncate">{{ $dataproduct->facility }}
+                    <p class="card-text text-muted text-truncate">{{ $dataproduct->description }}
                         <a href="{{ route('products.show', $dataproduct->id) }}" class="text-muted stretched-link">detail</a>
                     </p>
                 </div>

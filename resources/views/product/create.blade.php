@@ -4,10 +4,10 @@
 
 
 
-<section class="container">
+<section class="container pt-3">
 
-    <h1 class="mb-5">
-        <a href="{{ url('/products/create') }}">+ Add New</a>
+    <h1 class="my-4">
+        Buat Trip
     </h1>
 
     <form method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data">
@@ -121,6 +121,10 @@
     </form>
 
 </section>
+
+<script>
+    CKEDITOR.replace( 'facility' );
+</script>
 
 
 @endsection

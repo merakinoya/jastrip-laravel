@@ -28,9 +28,10 @@
     <link href="{{ asset('/css/custom.css') }}" rel="stylesheet">
     <link href="{{ asset('/css/hamburger-menu.css') }}" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://getbootstrap.com/docs/4.5/examples/carousel/carousel.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('/css/carousel.css') }}" crossorigin="anonymous">
 
     <script src="https://unpkg.com/feather-icons"></script>
+    <script src="{{ asset('/ckeditor/ckeditor.js') }}"></script>
 
 </head>
 
@@ -81,11 +82,6 @@
                     </li>
                     @endif
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/seller') }}">
-                            Seller List
-                        </a>
-                    </li>
 
                     <li class="nav-item dropdown">
 
@@ -94,7 +90,7 @@
 
                             @if(!Auth::user()->punyaProfile->img_photo)
                             <div class="placeholder-image mr-2">
-                                <span class="placholder-text">
+                                <span class="placholder-text" style="font-size: x-small;">
                                     @foreach (explode(" ", Auth::user()->name); as $w)
                                     {{ $w[0] }}
                                     @endforeach
@@ -133,17 +129,17 @@
     </nav>
 
 
-    <main style="margin-top: 48px; margin-bottom: 20px;">
+    <main style="margin-top: 88px; margin-bottom: 20px;">
         <!-- YOUR CONTENT WIL BE HERE-->
         @yield('content')
 
     </main>
 
-    
+
     <footer class="container py-5">
 
-    <hr>
-        <div class="row">
+        <hr>
+        <div class="row mt-5">
             <div class="col-12 col-md">
                 <img class="mb-2" src="{{ asset('img/nav-brand.svg') }}" alt="Logo Brand" height="">
                 <small class="d-block mb-3 text-muted">&copy; 2017-2020</small>
@@ -151,39 +147,22 @@
             <div class="col-6 col-md">
                 <h5>Features</h5>
                 <ul class="list-unstyled text-small">
-                    <li><a class="text-muted" href="#">Cool stuff</a></li>
-                    <li><a class="text-muted" href="#">Random feature</a></li>
-                    <li><a class="text-muted" href="#">Team feature</a></li>
-                    <li><a class="text-muted" href="#">Stuff for developers</a></li>
-                    <li><a class="text-muted" href="#">Another one</a></li>
-                    <li><a class="text-muted" href="#">Last time</a></li>
+                    <li class="my-1"><a class="text-muted" href="#">Cool stuff</a></li>
+                    <li class="my-1"><a class="text-muted" href="#">Random feature</a></li>
+                    <li class="my-1"><a class="text-muted" href="#">Team feature</a></li>
+                    <li class="my-1"><a class="text-muted" href="#">Stuff for developers</a></li>
+                    <li class="my-1"><a class="text-muted" href="#">Another one</a></li>
+                    <li class="my-1"><a class="text-muted" href="#">Last time</a></li>
                 </ul>
             </div>
-            <div class="col-6 col-md">
-                <h5>Resources</h5>
-                <ul class="list-unstyled text-small">
-                    <li><a class="text-muted" href="#">Resource</a></li>
-                    <li><a class="text-muted" href="#">Resource name</a></li>
-                    <li><a class="text-muted" href="#">Another resource</a></li>
-                    <li><a class="text-muted" href="#">Final resource</a></li>
-                </ul>
-            </div>
-            <div class="col-6 col-md">
-                <h5>Resources</h5>
-                <ul class="list-unstyled text-small">
-                    <li><a class="text-muted" href="#">Business</a></li>
-                    <li><a class="text-muted" href="#">Education</a></li>
-                    <li><a class="text-muted" href="#">Government</a></li>
-                    <li><a class="text-muted" href="#">Gaming</a></li>
-                </ul>
-            </div>
+
             <div class="col-6 col-md">
                 <h5>About</h5>
                 <ul class="list-unstyled text-small">
-                    <li><a class="text-muted" href="#">Team</a></li>
-                    <li><a class="text-muted" href="#">Locations</a></li>
-                    <li><a class="text-muted" href="#">Privacy</a></li>
-                    <li><a class="text-muted" href="#">Terms</a></li>
+                    <li class="my-1"><a class="text-muted" href="#">Team</a></li>
+                    <li class="my-1"><a class="text-muted" href="#">Locations</a></li>
+                    <li class="my-1"><a class="text-muted" href="#">Privacy</a></li>
+                    <li class="my-1"><a class="text-muted" href="#">Terms & Condition</a></li>
                 </ul>
             </div>
         </div>

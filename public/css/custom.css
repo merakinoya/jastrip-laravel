@@ -4,6 +4,8 @@ html {
 
 body {
     overflow-x: hidden;
+    padding-top: 0px;
+    padding-bottom: 0px;
 }
 
 /* -------- // Extra small devices (portrait phones, 0 / less than 360px) ------ */
@@ -20,15 +22,36 @@ body {
     margin-top: 7rem;
 }
 
+.rounded-xl {
+    border-radius: 0.8rem;
+}
+
+.card-img-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1.25rem;
+     /* https://cssgradient.io/  */
+    background: rgb(0, 0, 0);
+    background: linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.4023984593837535) 0%,
+        rgba(255, 255, 255, 0) 40%,
+        rgba(255, 255, 255, 0) 60%,
+        rgba(0, 0, 0, 0.4) 100%
+    );
+}
+
 .jumbotron {
     padding: 4rem 1rem;
-    margin-bottom: 6rem;
-    background-color: #e9ecef;
-    border-radius: 0.3rem;
+    margin-bottom: 4rem;
+    background-color: #ffffff;
 }
 @media (min-width: 600px) {
     .jumbotron {
-        padding: 12rem 6rem;
+        padding: 8rem 6rem;
     }
 }
 
@@ -51,25 +74,68 @@ body {
     margin-left: 0;
 }
 
+/* -------- CUSTOM SENDIRI---------- */
 
-/* -------- CUSTOM Sendiri---------- */
+.section {
+    padding: 4rem 1rem;
+}
 
 .hero-illustration {
+    background-image: linear-gradient(
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 0)
+        ),
+        url("../img/illustration.svg");
+
     height: 52rem;
 
-    background-image: url("https://jastrip.coretanstudio.com/img/illustration.svg");
-    background-position: right;
+    /* 
+    https://blogs.adobe.com/creativecloud/a-primer-to-background-positioning-in-css/ 
+    https://developer.mozilla.org/en-US/docs/Web/CSS/background-position
+    */
+    background-position: right -0% bottom -2%;
+
     background-repeat: no-repeat;
     position: relative;
 }
 /* Extra small devices (portrait phones, < less than 0px - 576px) */
 @media (max-width: 575.98px) {
     .hero-illustration {
-        background-image: url("https://jastrip.coretanstudio.com/img/illustration.svg");
-        background-position: right;
-        background-size: 16rem;
-        background-repeat: no-repeat;
-        position: relative;
+        background-image: linear-gradient(
+                rgb(255, 255, 255),
+                rgba(255, 255, 255, 0.753)
+            ),
+            url("../img/illustration.svg");
+        height: auto;
+
+        background-size: 20rem;
+        background-position: right -120% bottom -2%;
+    }
+}
+
+.section-two-illustration {
+    background-image: linear-gradient(
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 0)
+        ),
+        url("../img/rock-bottom-illustration.svg");
+
+    background-position: right -2.7% top -2%;
+
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+@media (max-width: 575.98px) {
+    .section-two-illustration {
+        background-image: linear-gradient(
+                rgb(255, 255, 255, 0.753),
+                rgba(255, 255, 255, 0.753)
+            ),
+            url("../img/rock-bottom-illustration.svg");
+        height: auto;
+        background-size: 20rem;
+        background-position: right -113% top -2%;
     }
 }
 

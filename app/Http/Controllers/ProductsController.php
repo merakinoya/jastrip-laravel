@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+// import the Intervention Image Manager Class
+use Intervention\Image\ImageManagerStatic;
 
 use App\User;
 use App\Seller;
@@ -21,7 +23,7 @@ class ProductsController extends Controller
     public function index()
     {
         $pagename = 'Trips';
-        $products = Products::all();
+        $products = Products::all()->sortByDesc('updated_at');
 
         return view('product.list', compact('products', 'pagename'));
         //return view('product.list', compact('products'));
@@ -82,7 +84,7 @@ class ProductsController extends Controller
         $product->terms_condition   = $request->terms_condition;
 
         $product->img               = $filename;
-          
+
         $product->save();
 
         return redirect()->route('products.index')->with('success','Product created successfully.');
@@ -127,10 +129,13 @@ class ProductsController extends Controller
         $product->facility          = $request->facility;
         $product->terms_condition   = $request->terms_condition;
 
-        $product->img               = $filename;
+        if($request->img)
+        {
+            $product->img = $filename ;
+        }
         
         //Save Action
-        $product->save();
+        $product->push();
 
         return redirect()->route('products.index')->with("status", "Berhasil di Update");
 

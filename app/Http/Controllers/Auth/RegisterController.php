@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 
 use App\Roles;
 use App\UserProfile;
+use App\Seller;
 
 class RegisterController extends Controller
 {
@@ -74,7 +75,7 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             //'api_token' => Str::random(60),
         ]);
-        
+         
         //Attach role user Customer
         $role_user  = Roles::where('id', '1')->first();
         $user->roles()->attach($role_user);
@@ -82,6 +83,10 @@ class RegisterController extends Controller
         //Add relation to UserProfile
         $profile = new UserProfile;
         $user->punyaProfile()->save($profile);
+
+        $seller = new Seller;
+        $seller->name = "My Store";
+        $user->punyaSeller()->save($seller);
 
         return $user;
     }

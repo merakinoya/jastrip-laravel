@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 23, 2020 at 12:38 PM
+-- Generation Time: Sep 04, 2020 at 05:39 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.2.27
 
@@ -170,14 +170,14 @@ CREATE TABLE `products` (
   `seller_id` int(10) UNSIGNED NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `price` decimal(13,0) DEFAULT NULL,
+  `description` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `price` decimal(16,0) DEFAULT NULL,
   `total_participant` int(11) DEFAULT NULL,
   `start_at` datetime DEFAULT NULL,
   `finish_at` datetime DEFAULT NULL,
   `meet_point` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `facility` mediumtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `terms_condition` mediumtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `facility` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `terms_condition` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `img` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -188,7 +188,7 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `seller_id`, `user_id`, `name`, `description`, `price`, `total_participant`, `start_at`, `finish_at`, `meet_point`, `facility`, `terms_condition`, `img`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 'Prau Mountain', 'Salam lestari penggiat alam indonesia. @selteradventure akan mengadakan kembali pendakian bersama Ke Gunung Lawu Via Candi Cetho & Gunung Prau Via Patak Banteng', '430000', 4, '2020-08-23 00:00:00', '2020-08-24 00:00:00', 'Stasiun Tugu Jogja', '-{Include}-\r\n• Transportasi PP Metpo - BC Pendakian\r\n• Tenda Dome Kap 4person\r\n• Perlengkapan Masak\r\n• Simaksi Pendakian\r\n• Logistik Pendakian\r\n• Makan 2x Selama di gunung\r\n• Dokumentasi Acara\r\n• Welcome Drink\r\n• P3K pendakian\r\n• Guide + Porter tim\r\n° Free Coffee & Teh / Wedang jahe', 'Noted ;\r\n• Membawa Masker 3Pcs\r\n• Membawa Handsanitaizer', '110192492_948680592237736_4580202782817591938_n.jpg', '2020-08-22 06:21:03', '2020-08-22 06:21:03');
+(1, 1, 1, 'Merbabu Mountain Trips', '<p>Gunung Rinjani via Sembalun + Explore Lombok&nbsp;</p>', '13000000', 4, '2020-09-06 00:00:00', '2020-09-06 00:00:00', 'Stasiun Yogyakarta', '<p>DESTINASI :ㅤㅤㅤㅤ<br />🔹 Puncak Rinjaniㅤㅤ<br />🔹 Plawangan Sembalunㅤㅤㅤ<br />🔹 Bukit Penyesalanㅤㅤㅤ<br />🔹 Lembah Sembalunㅤㅤㅤ<br />🔹 Bukit Mereseㅤㅤㅤ<br />🔹 Pantai Kuta Mandalikaㅤㅤㅤ<br />🔹 Desa Adat Sadeㅤㅤㅤㅤㅤㅤ<br />ㅤ<br />TANGGAL MAIN:ㅤ<br />🔹9-14 April 2020ㅤㅤㅤㅤ<br />🔹4-9 Juni 2020ㅤ<br />🔹3-8 September 2020ㅤㅤㅤㅤ<br />🔹5-10 November 2020ㅤㅤㅤ<br />🔹24-26 Desember 2020ㅤㅤ<br />ㅤㅤㅤㅤㅤㅤㅤㅤ<br />MEPO &amp; IURAN:ㅤㅤ<br />🔹Jogja : IDR 1.525.000ㅤ<br />🔹Surabaya : IDR 1.325.000ㅤㅤ<br />🔹Lombok : IDR 1.075.000</p>', 'Untuk Detail program silahkan hubungi adminㅤ\r\nㅤㅤㅤ\r\nWhatsApp: 📞+6282269229772', '110192492_948680592237736_4580202782817591938_n.jpg', '2020-09-04 08:03:32', '2020-09-04 08:03:32');
 
 -- --------------------------------------------------------
 
@@ -204,6 +204,14 @@ CREATE TABLE `roles` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `roles`
+--
+
+INSERT INTO `roles` (`id`, `name`, `description`, `created_at`, `updated_at`) VALUES
+(1, 'customer', 'Like a consumer, buyer, tenant, renter', '2020-09-04 07:24:44', NULL),
+(2, 'seller', 'Something like a seller, distributor, owner', '2020-09-04 07:24:44', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -217,6 +225,13 @@ CREATE TABLE `role_users` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `role_users`
+--
+
+INSERT INTO `role_users` (`id`, `user_id`, `role_id`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, '2020-09-04 07:27:06', '2020-09-04 07:27:06');
 
 -- --------------------------------------------------------
 
@@ -237,7 +252,7 @@ CREATE TABLE `sellers` (
 --
 
 INSERT INTO `sellers` (`id`, `user_id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 1, '', '2020-08-22 05:23:30', '2020-08-22 05:23:30');
+(1, 1, 'My Store', '2020-09-04 07:27:06', '2020-09-04 07:27:06');
 
 -- --------------------------------------------------------
 
@@ -264,7 +279,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `provider`, `provider_id`, `email_verified_at`, `password`, `api_token`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Ilham Anasruloh', 'ilhamanasruloh26@gmail.com', 'google', '117495474338149631287', NULL, NULL, NULL, 'wDR082EBsB6YXJ40clA0yeOdf5sn3s4zm2JrhL9JO6Zzsggkvu9CULMkkn94', '2020-08-22 05:23:24', '2020-08-22 05:23:24');
+(1, 'Ilham', 'ilhamanasruloh26@gmail.com', NULL, NULL, NULL, '$2y$10$UYeZS3PNlzxwLyO9r.lVMOGuqWmERRjMauI4POyr1cOcpsDPFD4kC', NULL, NULL, '2020-09-04 07:27:06', '2020-09-04 07:27:06');
 
 -- --------------------------------------------------------
 
@@ -287,7 +302,7 @@ CREATE TABLE `user_profiles` (
 --
 
 INSERT INTO `user_profiles` (`id`, `user_id`, `gender`, `phone`, `img_photo`, `created_at`, `updated_at`) VALUES
-(1, 1, NULL, NULL, 'https://lh3.googleusercontent.com/a-/AOh14GjJuaYs8ZoDOmlWTjnRtbLxrL0FZcgqPcKEWNXO0A', '2020-08-22 05:23:24', '2020-08-22 05:23:24');
+(1, 1, NULL, NULL, NULL, '2020-09-04 07:27:06', '2020-09-04 07:27:06');
 
 --
 -- Indexes for dumped tables
@@ -419,13 +434,13 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `role_users`
 --
 ALTER TABLE `role_users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `sellers`

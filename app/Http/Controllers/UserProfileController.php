@@ -128,7 +128,7 @@ class UserProfileController extends Controller
         if (!$userseller) 
         {
             $seller = new Seller;
-
+ 
             $seller->user_id = $id;
 
             $seller->name = "";
