@@ -13,8 +13,8 @@ use App\Products;
 
 class ProductsController extends Controller
 {
-    
-   
+
+
     /**
      * Display a listing of the resource.
      *
@@ -23,7 +23,8 @@ class ProductsController extends Controller
     public function index()
     {
         $pagename = 'Trips';
-        $products = Products::all()->sortByDesc('updated_at');
+
+        $products = Products::latest()->paginate(9);
 
         return view('product.list', compact('products', 'pagename'));
         //return view('product.list', compact('products'));
@@ -33,7 +34,7 @@ class ProductsController extends Controller
     {
         //
         $products = Products::findOrFail($id);
-        return view('product.detail', ['product' => $products ]);
+        return view('product.detail', ['product' => $products]);
     }
 
     /**
@@ -56,12 +57,20 @@ class ProductsController extends Controller
         $sellerid = $user->punyaSeller->id;
 
         $request->validate([
-            'name' => 'required|min:4|max:255',
-            'facility' => 'required'
+            'name'              => 'required|min:4|max:255',
+            'description'       => 'required|min:4',
+            'price'             => 'required',
+            'total_participant' => 'required',
+
+            'start_at'          => 'required',
+            'finish_at'         => 'required',
+
+            'meet_point'        => 'required',
+            'facility'          => 'required',
+            'terms_condition'   => 'required',
         ]);
 
-        if ($request->hasFile('img'))
-        {
+        if ($request->hasFile('img')) {
             $filename = $request->img->getClientOriginalName();
             // Save files to directory folder
             $request->img->storePubliclyAs('/products', $filename, 'public_uploads');
@@ -76,7 +85,7 @@ class ProductsController extends Controller
         $product->price             = $request->price;
         $product->total_participant = $request->total_participant;
 
-        $product->start_at          = $request->start_at; 
+        $product->start_at          = $request->start_at;
         $product->finish_at         = $request->finish_at;
 
         $product->meet_point        = $request->meet_point;
@@ -87,7 +96,7 @@ class ProductsController extends Controller
 
         $product->save();
 
-        return redirect()->route('products.index')->with('success','Product created successfully.');
+        return redirect()->route('products.index')->with('success', 'Product created successfully.');
     }
 
 
@@ -98,20 +107,19 @@ class ProductsController extends Controller
         $pagename = 'Edit Trips';
         $product = Products::findOrFail($id);
         return view('product.edit', compact('product', 'pagename'));
-
     }
 
     public function update(Request $request, $id)
     {
-        $product = Products::findOrFail($id);
 
         $request->validate([
             'name' => 'required',
             'facility' => 'required'
         ]);
-    
-        if ($request->hasFile('img'))
-        {
+
+        $product = Products::findOrFail($id);
+
+        if ($request->hasFile('img')) {
             $filename = $request->img->getClientOriginalName();
             // Save files to directory folder
             $request->img->storeAs('/products', $filename, 'public_uploads');
@@ -122,23 +130,21 @@ class ProductsController extends Controller
         $product->price             = $request->price;
         $product->total_participant = $request->total_participant;
 
-        $product->start_at          = $request->start_at; 
+        $product->start_at          = $request->start_at;
         $product->finish_at         = $request->finish_at;
 
         $product->meet_point        = $request->meet_point;
         $product->facility          = $request->facility;
         $product->terms_condition   = $request->terms_condition;
 
-        if($request->img)
-        {
-            $product->img = $filename ;
+        if ($request->img) {
+            $product->img = $filename;
         }
-        
+
         //Save Action
         $product->push();
 
         return redirect()->route('products.index')->with("status", "Berhasil di Update");
-
     }
 
     /**

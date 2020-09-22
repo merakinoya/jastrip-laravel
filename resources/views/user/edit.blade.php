@@ -3,11 +3,14 @@
 
 
 <section class="container">
-
-    <nav aria-label="breadcrumb" class="container mt-4">
-        <ol class="breadcrumb bg-white">
-            <li class="breadcrumb-item"><a href="{{ url()->previous() }}">
-                    < Back</a> </li> <li class="breadcrumb-item active" aria-current="page">{{ $pagename }}</li>
+    
+    <nav aria-label="breadcrumb" class="mt-4">
+        <ol class="breadcrumb bg-white px-0">
+            <li class="breadcrumb-item">
+                <a href="{{ url()->previous() }}" class="">
+                    <i data-feather="arrow-left" width="16" height="16"></i> Back</a>
+            </li>
+            <li class="breadcrumb-item active text-truncate" aria-current="page">{{ $pagename }}</li>
         </ol>
     </nav>
 
@@ -58,7 +61,7 @@
             <label>Phone</label>
 
             @if (Auth::user()->punyaProfile)
-            <input value="{{ $user->punyaProfile->phone  }}" name="phone" id="phone" class="form-control @error('phone') is-invalid @enderror" type="number" placeholder="08..">
+            <input value="{{ $user->punyaProfile->phone  }}" name="phone" id="phone" class="form-control @error('phone') is-invalid @enderror" type="tel" placeholder="08.." />
             @endif
 
             @error('phone')

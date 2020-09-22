@@ -4,15 +4,18 @@
 
 
 <section class="container">
-
-    <nav aria-label="breadcrumb" class="container mt-4">
-        <ol class="breadcrumb bg-white">
+    
+    <nav aria-label="breadcrumb" class="mt-4">
+        <ol class="breadcrumb bg-white px-0">
             <li class="breadcrumb-item">
-                <a href="{{ url()->previous() }}">< Back</a>
+                <a href="{{ url()->previous() }}" class="">
+                    <i data-feather="arrow-left" width="16" height="16"></i> Back</a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">{{ $pagename }}</li>
+            <li class="breadcrumb-item active text-truncate" aria-current="page">{{ $pagename }}</li>
         </ol>
     </nav>
+
+    
 
 
     @if (session('status'))

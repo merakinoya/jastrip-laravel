@@ -88,17 +88,17 @@
 
 
                 <h3 class="mb-4">Terms & Condition</h3>
-                <dl>{{ $product->terms_condition }}</dl>
+                <dl>
+                    <?php echo $product->terms_condition ?>
+                </dl>
 
-
-                <hr> <!-- Divider -->
-
+                <!--
                 <h3 class="mb-4">Lokasi</h3>
-                <!-- 21:9 aspect ratio -->
                 <div class="embed-responsive embed-responsive-21by9">
                     <iframe class="embed-responsive-item"
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d41711.325973765015!2d110.42902199738165!3d-7.452603138203962!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a7b455e544767%3A0xf7af0c6e80ad2dde!2sMount%20Merbabu!5e0!3m2!1sen!2sid!4v1593963862981!5m2!1sen!2sid"></iframe>
                 </div>
+            -->
 
                 <hr> <!-- Divider -->
 

@@ -62,8 +62,10 @@
                     <a class="nav-item nav-link text-nowrap @if(!session('error')) active @endif" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Daftar Seller</a>
                     @endif
 
+                    <!--
                     <a class="nav-item nav-link text-nowrap" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Transaction</a>
                     <a class="nav-item nav-link text-nowrap" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Settings</a>
+                    -->
                     <a class="nav-item nav-link text-nowrap  @if(session('error')) active @endif" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Change
                         Password</a>
 
@@ -99,7 +101,9 @@
 
                         <div class="col mb-4">
                             <div class="card border-0 shadow rounded-lg">
-                                <a class="position-absolute-custom text-white" href="" data-toggle="tooltip" data-placement="top" title="Wishlist"><i data-feather="edit"></i></a>
+                                <a class="position-absolute-custom text-white" href="" data-toggle="tooltip" data-placement="top" title="Wishlist">
+                                    <i data-feather="{{ ( Auth::user()->punyaSeller->id != $dataproduct->seller_id )? "heart" : "edit" }}"></i>
+                                </a>
 
                                 @if(!$dataproduct->img)
                                 <img class="card-img-top rounded-top" src="https://source.unsplash.com/x9I-6yoXrXE" alt="Product Photo" />
@@ -115,7 +119,7 @@
                                         <br>
                                         <small>{{ date('d M Y',strtotime($dataproduct->start_at)) }}</small>-<small>{{ date('d M Y',strtotime($dataproduct->finish_at)) }}</small>
                                     </p>
-                                    <p class="card-text text-muted text-truncate">{{ $dataproduct->facility }}
+                                    <p class="card-text text-muted text-truncate">{{ $dataproduct->description }}
                                         <a href="{{ route('products.show', $dataproduct->id) }}" class="text-muted stretched-link">detail</a>
                                     </p>
                                 </div>
@@ -123,7 +127,7 @@
                                 <div class="card-footer">
                                     <small class="text-black-50">Updated {{ date('d M Y',strtotime($dataproduct->updated_at)) }} </small>
 
-                                    <a href="{{ route('products.edit', $dataproduct->id) }}" class="btn stretched-link" style="position: relative;">Edit</a>
+                                    <a href="{{ route('products.edit', $dataproduct->id) }}" class="btn stretched-link  {{ ( Auth::user()->punyaSeller->id != $dataproduct->seller_id )? "d-none" : "" }}" style="position: relative;">Edit</a>
                                     <button class="btn btn-outline-dark float-right">Contact</button>
                                 </div>
                             </div>

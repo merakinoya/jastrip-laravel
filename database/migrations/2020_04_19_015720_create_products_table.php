@@ -36,6 +36,7 @@ class CreateProductsTable extends Migration
             $table->string('img')->nullable();
 
             $table->timestamps();
+            $table->softDeletes();
 
             /* Relation Table */
             $table->foreign('seller_id')->references('id')->on('sellers')->onDelete('cascade');

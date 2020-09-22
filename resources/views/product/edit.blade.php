@@ -126,6 +126,7 @@
 
 <script>
     CKEDITOR.replace( 'facility' );
+    CKEDITOR.replace( 'terms_condition' );
 </script>
 
 

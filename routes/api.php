@@ -25,7 +25,10 @@ Route::middleware('auth:api')->get('/user',
 
 Route::post('login',    'API\UserController@login');
 Route::post('register', 'API\UserController@register');
+
+Route::post('signin',   'API\UserController@signin');
 Route::post('signup',   'API\UserController@signup');
+
 
 Route::get('seller',        'API\SellerController@index');
 Route::get('seller/{id}',   'API\SellerController@show');

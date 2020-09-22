@@ -108,10 +108,10 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ url('/userprofile') }}">Profile</a>
-                            <a class="dropdown-item" href="#">My Products</a>
-                            <a class="dropdown-item" href="#">Transactions</a>
-                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                            <a class="dropdown-item" href="{{ url('/userprofile') }}">My Profile</a>
+                            <a class="dropdown-item" href="{{ url('/products/create') }}">Add Products</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item text-muted" href="{{ route('logout') }}" onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
                                 {{ __('Logout') }}
                             </a>
