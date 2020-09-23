@@ -136,7 +136,7 @@
     </main>
 
 
-    <footer class="container py-5">
+    <footer class="container py-4">
 
         <hr>
         <div class="row mt-5">
