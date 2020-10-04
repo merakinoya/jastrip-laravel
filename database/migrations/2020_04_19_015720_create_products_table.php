@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             /* Custom Column */
             $table->integer('seller_id')->unsigned();
             $table->integer('user_id')->unsigned();
+            $table->integer('userprofile_id')->unsigned()->nullable();
 
             $table->string('name');
             $table->longText('description')->nullable();
@@ -41,6 +42,7 @@ class CreateProductsTable extends Migration
             /* Relation Table */
             $table->foreign('seller_id')->references('id')->on('sellers')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('userprofile_id')->references('id')->on('user_profiles')->onDelete('cascade');
         });
     }
 

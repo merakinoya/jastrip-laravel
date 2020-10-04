@@ -13,6 +13,7 @@ class Products extends Model
     protected $fillable = [
         'seller_id',
         'user_id',  
+        'userprofile_id',  
         
         'name',
         'description', 
@@ -41,6 +42,6 @@ class Products extends Model
 
     public function dipunyaiUserProfile()
     {
-        return $this->belongsTo('App\UserProfile');
+        return $this->belongsTo('App\UserProfile', 'userprofile_id');
     }
 }

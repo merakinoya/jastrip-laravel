@@ -79,17 +79,18 @@ class Collection extends BaseCollection implements QueueableCollection
             ->whereKey($this->modelKeys())
             ->select($this->first()->getKeyName())
             ->withCount(...func_get_args())
-            ->get();
+            ->get()
+            ->keyBy($this->first()->getKeyName());
 
         $attributes = Arr::except(
             array_keys($models->first()->getAttributes()),
             $models->first()->getKeyName()
         );
 
-        $models->each(function ($model) use ($attributes) {
-            $this->find($model->getKey())->forceFill(
-                Arr::only($model->getAttributes(), $attributes)
-            )->syncOriginalAttributes($attributes);
+        $this->each(function ($model) use ($models, $attributes) {
+            $extraAttributes = Arr::only($models->get($model->getKey())->getAttributes(), $attributes);
+
+            $model->forceFill($extraAttributes)->syncOriginalAttributes($attributes);
         });
 
         return $this;
@@ -184,6 +185,27 @@ class Collection extends BaseCollection implements QueueableCollection
             })
             ->each(function ($models, $className) use ($relations) {
                 static::make($models)->load($relations[$className] ?? []);
+            });
+
+        return $this;
+    }
+
+    /**
+     * Load a set of relationship counts onto the mixed relationship collection.
+     *
+     * @param  string  $relation
+     * @param  array  $relations
+     * @return $this
+     */
+    public function loadMorphCount($relation, $relations)
+    {
+        $this->pluck($relation)
+            ->filter()
+            ->groupBy(function ($model) {
+                return get_class($model);
+            })
+            ->each(function ($models, $className) use ($relations) {
+                static::make($models)->loadCount($relations[$className] ?? []);
             });
 
         return $this;
@@ -335,7 +357,7 @@ class Collection extends BaseCollection implements QueueableCollection
      *
      * @param  string|callable|null  $key
      * @param  bool  $strict
-     * @return static|\Illuminate\Support\Collection
+     * @return static
      */
     public function unique($key = null, $strict = false)
     {
@@ -568,7 +590,19 @@ class Collection extends BaseCollection implements QueueableCollection
      */
     public function getQueueableRelations()
     {
-        return $this->isNotEmpty() ? $this->first()->getQueueableRelations() : [];
+        if ($this->isEmpty()) {
+            return [];
+        }
+
+        $relations = $this->map->getQueueableRelations()->all();
+
+        if (count($relations) === 0 || $relations === [[]]) {
+            return [];
+        } elseif (count($relations) === 1) {
+            return reset($relations);
+        } else {
+            return array_intersect(...$relations);
+        }
     }
 
     /**
@@ -593,5 +627,31 @@ class Collection extends BaseCollection implements QueueableCollection
         });
 
         return $connection;
+    }
+
+    /**
+     * Get the Eloquent query builder from the collection.
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     *
+     * @throws \LogicException
+     */
+    public function toQuery()
+    {
+        $model = $this->first();
+
+        if (! $model) {
+            throw new LogicException('Unable to create query for empty collection.');
+        }
+
+        $class = get_class($model);
+
+        if ($this->filter(function ($model) use ($class) {
+            return ! $model instanceof $class;
+        })->isNotEmpty()) {
+            throw new LogicException('Unable to create query for collection with mixed types.');
+        }
+
+        return $model->newModelQuery()->whereKey($this->modelKeys());
     }
 }

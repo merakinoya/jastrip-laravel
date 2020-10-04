@@ -7,7 +7,7 @@
     <h1 class="title"> {{ __('Login') }}</h1>
 
     <!-- FORM -->
-    <form method="POST" action="{{ route('login') }}">
+    <form method="POST" action="{{ route('login') }}"> 
         @csrf
 
         <!-- EMAIL -->
@@ -39,12 +39,10 @@
         </div>
 
         <!-- BUTTON -->
-        <div class="mt-4 d-flex flex-row">
-            <button type="submit" class="btn btn-primary">
-                {{ __('Login') }}
-            </button>
-    
-            <a class="btn btn-link" href="{{ route('register') }}">Belum punya akun? Daftar di sini</a>
+        <div class="mt-4  d-flex flex-wrap">
+                <button type="submit" class="btn btn-primary mb-4">{{ __('Login') }}</button>
+
+                <a class="btn btn-link" href="{{ route('register') }}">Belum punya akun? Daftar di sini</a>
         </div>
     </form>
 

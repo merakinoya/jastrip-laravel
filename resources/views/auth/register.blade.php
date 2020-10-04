@@ -52,8 +52,8 @@
 
 
                 <!-- BUTTON SIGNUP -->
-                <div class="mt-4 d-flex flex-row">
-                    <button type="submit" class="btn btn-primary">
+                <div class="mt-4 d-flex flex-wrap">
+                    <button type="submit" class="btn btn-primary mb-4">
                         {{ __('Sign Up') }}
                     </button>
 

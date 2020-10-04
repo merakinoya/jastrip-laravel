@@ -20,9 +20,9 @@ class UserProfile extends Model
         return $this->belongsTo('App\User', 'id');
     }
 
-    // Relation to One to One - Profile of User
+    // Relation to One to One - Profile of User -punya> Products
     public function punyaProducts()
     {
-        return $this->hasMany('App\Products');
+        return $this->hasMany('App\Products','userprofile_id','id');
     }
 }

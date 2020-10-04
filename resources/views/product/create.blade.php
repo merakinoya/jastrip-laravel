@@ -11,7 +11,7 @@
     </h1>
 
     <form method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data">
-        @csrf
+
 
         <div class="form-group">
             <label for="name">Event Name</label>
@@ -125,7 +125,7 @@
         </div>
         -->
 
-
+        @csrf
         <button type="submit" class="btn btn-primary mt-1">
             Simpan
         </button>

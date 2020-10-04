@@ -2,6 +2,105 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 2.4.1 - 2020-09-03
+
+
+
+-----
+
+### Release Notes for [2.4.1](https://github.com/laminas/laminas-diactoros/milestone/6)
+
+2.4.x bugfix release (patch)
+
+### 2.4.1
+
+- Total issues resolved: **0**
+- Total pull requests resolved: **1**
+- Total contributors: **1**
+
+#### Bug
+
+ - [50: gd is used by test suite](https://github.com/laminas/laminas-diactoros/pull/50) thanks to @remicollet
+## 2.4.0 - 2020-09-02
+
+-----
+
+### Release Notes for [2.4.0](https://github.com/laminas/laminas-diactoros/milestone/1)
+
+Feature release (minor)
+
+### 2.4.0
+
+- Total issues resolved: **0**
+- Total pull requests resolved: **2**
+- Total contributors: **2**
+
+
+
+
+ - [49: Merge release 2.3.2 into 2.4.x](https://github.com/laminas/laminas-diactoros/pull/49) thanks to @github-actions[bot]
+
+#### Enhancement
+
+ - [45: Allow Streams to be instantiated using GD resources](https://github.com/laminas/laminas-diactoros/pull/45) thanks to @settermjd
+## 2.3.2 - 2020-09-02
+
+### Added
+
+- Nothing.
+
+### Changed
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- [#47](https://github.com/laminas/laminas-diactoros/pull/47) corrects the documented exception type thrown by `Laminas\Diactoros\Response\ArraySerializer::fromArray()` to indicate `Laminas\Diactoros\Exception\DeserializationException` is thrown by the method.
+
+-----
+
+### Release Notes for [2.3.2](https://github.com/laminas/laminas-diactoros/milestone/2)
+
+### 2.3.2
+
+- Total issues resolved: **0**
+- Total pull requests resolved: **1**
+- Total contributors: **1**
+
+#### Bug,Documentation
+
+ - [47: Fixes docblock @throws in ArraySerializer::getValueFromKey()](https://github.com/laminas/laminas-diactoros/pull/47) thanks to @samsonasik
+ 
+## 2.3.1 - 2020-07-07
+
+### Added
+
+- Nothing.
+
+### Changed
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- [#44](https://github.com/laminas/laminas-diactoros/pull/44) fixes an issue whereby the uploaded file size was being provided as an integer string, and causing type errors. The value is now cast to integer before creating an `UploadedFile` instance.
+
 ## 2.3.0 - 2020-04-27
 
 ### Added

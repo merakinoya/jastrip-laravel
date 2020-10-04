@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
+
 // import the Intervention Image Manager Class
-use Intervention\Image\ImageManagerStatic;
+use Intervention\Image\ImageManager;
 
 use App\User;
 use App\Seller;
@@ -68,7 +70,9 @@ class ProductsController extends Controller
             'meet_point'        => 'required',
             'facility'          => 'required',
             'terms_condition'   => 'required',
+            'img'               => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:8048',
         ]);
+        
 
         if ($request->hasFile('img')) {
             $filename = $request->img->getClientOriginalName();
@@ -78,7 +82,8 @@ class ProductsController extends Controller
 
         $product = new Products;
         $product->seller_id = $sellerid;
-        $product->user_id   = $id;
+        $product->user_id          = $id;
+        $product->userprofile_id   = $id;
 
         $product->name              = $request->name;
         $product->description       = $request->description;

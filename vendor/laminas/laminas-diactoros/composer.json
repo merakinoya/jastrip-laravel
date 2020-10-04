@@ -6,7 +6,8 @@
         "laminas",
         "http",
         "psr",
-        "psr-7"
+        "psr-7",
+        "psr-17"
     ],
     "homepage": "https://laminas.dev",
     "support": {
@@ -21,10 +22,6 @@
         "sort-packages": true
     },
     "extra": {
-        "branch-alias": {
-            "dev-master": "2.3.x-dev",
-            "dev-develop": "2.4.x-dev"
-        },
         "laminas": {
             "config-provider": "Laminas\\Diactoros\\ConfigProvider",
             "module": "Laminas\\Diactoros"
@@ -39,6 +36,7 @@
     "require-dev": {
         "ext-curl": "*",
         "ext-dom": "*",
+        "ext-gd": "*",
         "ext-libxml": "*",
         "http-interop/http-factory-tests": "^0.5.0",
         "laminas/laminas-coding-standard": "~1.0.0",

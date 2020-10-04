@@ -105,7 +105,25 @@
                 <h3 class="mb-4">Diposting oleh</h3>
                 <ul class="list-unstyled">
                     <li class="media my-4">
-                        <img class="mr-3 rounded-circle" src="https://source.unsplash.com/b1Hg7QI-zcc/48x48" alt="Generic placeholder image">
+         
+                        @if(!$product->dipunyaiUserProfile->img_photo)
+                        <div class="placeholder-image mr-2" style="width:52px; height:52px;">
+                            <span class="placholder-text text-capitalize">
+                                @foreach (explode(" ", $product->dipunyaiUser->name); as $w)
+                                {{ $w[0] }}
+                                @endforeach
+                            </span>
+                        </div>
+                        @else
+
+                        @if(file_exists( public_path().'/uploads/images/'. $product->dipunyaiUserProfile->img_photo ))
+                        <img class="rounded-circle mb-4" style="width: 52px; height: 52px;" src="{{ asset('/uploads/images/'. $product->dipunyaiUserProfile->img_photo ) }}" alt="Profile" />
+                        @else
+                        <img class="rounded-circle mb-4" style="width: 52px; height: 52px;" src="{{ $product->dipunyaiUserProfile->img_photo }}" alt="Profile" />
+                        @endif
+
+                        @endif
+
                         <div class="media-body">
                             <h5 class="mb-1">{{ $product->dipunyaiUser->name }}</h5>
 
@@ -148,16 +166,19 @@
         <div class="container">
             <div class="d-flex flex-column bd-highlight">
                 <h5 class="mb-0">Rp{{ number_format($product->price, 0, '', '.') }}</h5>
-                <small> /{{ $product->total_participant }} peserta</small>
+                <small> /{{ $product->total_participant }} orang</small>
+
             </div>
+            @if($product->dipunyaiUserProfile->phone)
+            <a href="https://wa.me/62{{ $product->dipunyaiUserProfile->phone }}?text=I'm%20interested%20in%20your%20car%20for%20sale" target="_blank" class="btn btn-primary btn-lg float-right">
+                <i data-feather="message-circle"></i> Hubungi
+            </a>
+            @else
             <a href="https://wa.me/6282219259952?text=I'm%20interested%20in%20your%20car%20for%20sale" target="_blank" class="btn btn-primary btn-lg float-right">
                 <i data-feather="message-circle"></i> Hubungi
             </a>
-            <!--
-            <a href="https://wa.me/62(int) ?text=I'm%20interested%20in%20your%20car%20for%20sale" target="_blank" class="btn btn-primary btn-lg float-right">
-                <i data-feather="message-circle"></i> Hubungi
-            </a>
-        -->
+            @endif
+
         </div>
     </nav>
 

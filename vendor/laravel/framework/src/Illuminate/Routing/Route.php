@@ -93,6 +93,20 @@ class Route
     protected $originalParameters;
 
     /**
+     * Indicates the maximum number of seconds the route should acquire a session lock for.
+     *
+     * @var int|null
+     */
+    protected $lockSeconds;
+
+    /**
+     * Indicates the maximum number of seconds the route should wait while attempting to acquire a session lock.
+     *
+     * @var int|null
+     */
+    protected $waitSeconds;
+
+    /**
      * The computed gathered middleware.
      *
      * @var array|null
@@ -677,7 +691,13 @@ class Route
             return $this->getDomain();
         }
 
-        $this->action['domain'] = $domain;
+        $parsed = RouteUri::parse($domain);
+
+        $this->action['domain'] = $parsed->uri;
+
+        $this->bindingFields = array_merge(
+            $this->bindingFields, $parsed->bindingFields
+        );
 
         return $this;
     }
@@ -887,6 +907,10 @@ class Route
     {
         $this->action = $action;
 
+        if (isset($this->action['domain'])) {
+            $this->domain($this->action['domain']);
+        }
+
         return $this;
     }
 
@@ -970,6 +994,51 @@ class Route
     public function excludedMiddleware()
     {
         return (array) ($this->action['excluded_middleware'] ?? []);
+    }
+
+    /**
+     * Specify that the route should not allow concurrent requests from the same session.
+     *
+     * @param  int|null  $lockSeconds
+     * @param  int|null  $waitSeconds
+     * @return $this
+     */
+    public function block($lockSeconds = 10, $waitSeconds = 10)
+    {
+        $this->lockSeconds = $lockSeconds;
+        $this->waitSeconds = $waitSeconds;
+
+        return $this;
+    }
+
+    /**
+     * Specify that the route should allow concurrent requests from the same session.
+     *
+     * @return $this
+     */
+    public function withoutBlocking()
+    {
+        return $this->block(null, null);
+    }
+
+    /**
+     * Get the maximum number of seconds the route's session lock should be held for.
+     *
+     * @return int|null
+     */
+    public function locksFor()
+    {
+        return $this->lockSeconds;
+    }
+
+    /**
+     * Get the maximum number of seconds to wait while attempting to acquire a session lock.
+     *
+     * @return int|null
+     */
+    public function waitsFor()
+    {
+        return $this->waitSeconds;
     }
 
     /**
