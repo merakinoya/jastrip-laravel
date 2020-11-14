@@ -112,7 +112,7 @@ class SellerController extends Controller
         //$user->push(); //For update data relational
         $user->push();
 
-        return redirect()->back()->with("status", "Profil Toko berhasil diupdate.");
+        return redirect()->route('userprofile.index')->with("status", "Profil Toko berhasil diupdate.");
     }
     /**
      * Remove the specified resource from storage.

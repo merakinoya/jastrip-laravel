@@ -34,8 +34,33 @@
             @enderror
         </div>
 
+
+        <hr class="my-3" style="border-top: 8px solid rgba(0, 0, 0, 0.05);">
+
         <div class="row">
-            <div class="form-group col">
+            <div class="form-group col-md-3">
+                <label for="start_at">Start Date</label>
+                <input name="start_at" id="date_start" value="" type="text" class="form-control @error('start_at') is-invalid @enderror" placeholder="Tanggal Pendakian" />
+
+                @error('start_at')
+                <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="form-group col-md-3">
+                <label for="finish_at">Finish Date</label>
+                <input name="finish_at" id="date_end" value="" type="text" class="form-control @error('finish_at') is-invalid @enderror" placeholder="Tanggal Turun" />
+                @error('finish_at')
+                <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                @enderror
+            </div>
+        </div>
+
+
+        <hr class="my-3" style="border-top: 8px solid rgba(0, 0, 0, 0.05);">
+
+        <div class="row">
+            <div class="form-group col-md-3">
                 <label for="price">Price</label>
                 <input name="price" id="price" value="{{ old('price') }}" type="number" class="form-control @error('price') is-invalid @enderror" placeholder="Rp" />
                 @error('price')
@@ -43,29 +68,10 @@
                 @enderror
             </div>
 
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-3">
                 <label for="total_participant">Total Participant</label>
                 <input name="total_participant" id="total_participant" value="{{ old('total_participant') }}" type="number" class="form-control @error('total_participant') is-invalid @enderror" placeholder="Jumlah Peserta" />
                 @error('total_participant')
-                <span class="invalid-feedback" role="alert">{{ $message }}</span>
-                @enderror
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="form-group col">
-                <label for="start_at">Start Date</label>
-                <input name="start_at" id="start_at" value="{{ old('start_at') }}" type="date" class="form-control @error('start_at') is-invalid @enderror" />
-
-                @error('start_at')
-                <span class="invalid-feedback" role="alert">{{ $message }}</span>
-                @enderror
-            </div>
-
-            <div class="form-group col">
-                <label for="finish_at">Finish Date</label>
-                <input name="finish_at" id="finish_at" value="{{ old('finish_at') }}" type="date" class="form-control @error('finish_at') is-invalid @enderror" />
-                @error('finish_at')
                 <span class="invalid-feedback" role="alert">{{ $message }}</span>
                 @enderror
             </div>
@@ -138,6 +144,5 @@
     CKEDITOR.replace( 'facility' );
     CKEDITOR.replace( 'terms_condition' );
 </script>
-
 
 @endsection

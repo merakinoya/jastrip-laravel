@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Auth\LoginController;
 
 
 use App\User;
@@ -33,8 +34,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resources([
     'products' => 'ProductsController',
-    'seller' => 'SellerController',
-    'userprofile' => 'UserProfileController'
+    'seller' => 'SellerController'
 ]);
 
 Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider');
@@ -52,8 +52,12 @@ Route::middleware(['auth'])->group(function () {
     //Photo Profile User
     Route::get('photo', 'UserProfileController@photo')->name('userprofile.photo');
     Route::post('photo', 'UserProfileController@uploadPhoto')->name('userprofile.uploadPhoto');
-
+    
+    Route::get('/userprofile','UserProfileController@index')->name('userprofile.index');
     Route::post('/userprofile','UserProfileController@updatePassword')->name('userprofile.updatePassword');
+
+    Route::get('/userprofile/edit/','UserProfileController@edit')->name('userprofile.edit');
+    Route::post('/userprofile/edit/','UserProfileController@update')->name('userprofile.update');
     
     // Activate Seller
     Route::get('activate-seller', 'UserProfileController@signupSeller')->name('signup-seller');

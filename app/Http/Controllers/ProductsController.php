@@ -64,13 +64,13 @@ class ProductsController extends Controller
             'price'             => 'required',
             'total_participant' => 'required',
 
-            'start_at'          => 'required',
-            'finish_at'         => 'required',
+            'start_at'          => 'required|date|after:tomorrow',
+            'finish_at'         => 'required|date|after:start_at',
 
             'meet_point'        => 'required',
             'facility'          => 'required',
             'terms_condition'   => 'required',
-            'img'               => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:8048',
+            'img'               => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:8048|file',
         ]);
         
 
@@ -118,8 +118,18 @@ class ProductsController extends Controller
     {
 
         $request->validate([
-            'name' => 'required',
-            'facility' => 'required'
+            'name'              => 'required|min:4|max:255',
+            'description'       => 'required|min:4',
+            'price'             => 'required',
+            'total_participant' => 'required',
+
+            'start_at'          => 'required|date|after:tomorrow',
+            'finish_at'         => 'required|date|after:start_at',
+
+            'meet_point'        => 'required',
+            'facility'          => 'required',
+            'terms_condition'   => 'required',
+            'img'               => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:8048|file',
         ]);
 
         $product = Products::findOrFail($id);
@@ -149,7 +159,7 @@ class ProductsController extends Controller
         //Save Action
         $product->push();
 
-        return redirect()->route('products.index')->with("status", "Berhasil di Update");
+        return redirect()->route('userprofile.index')->with("status", "Produk Berhasil di Update");
     }
 
     /**
@@ -164,6 +174,6 @@ class ProductsController extends Controller
         $product = Products::findOrFail($id);
         $product->delete();
 
-        return redirect()->route('products.index')->with('status', 'Produk Berhasil Dihapus!');
+        return redirect()->route('userprofile.index')->with('status', 'Produk Berhasil Dihapus!');
     }
 }

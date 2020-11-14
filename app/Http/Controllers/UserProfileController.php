@@ -59,7 +59,7 @@ class UserProfileController extends Controller
             ]);
         }
 
-        return redirect()->route('userprofile.index')->with('status', 'Item created successfully');
+        return redirect()->route('userprofile.index')->with('status', 'Photo Updated successfully');
     }
 
     public function show($id)
@@ -67,48 +67,71 @@ class UserProfileController extends Controller
         //
     }
 
+
     public function edit()
     {
-        //mengambil model User dengan di buat alias variabel $user
-        $pagename = 'Edit Profile';
-        $user = Auth::user();
-        $userprofile = $user->punyaProfile;
-
-        return view('user.edit', compact('user', 'userprofile', 'pagename'));
-    }
-
-
-    public function update(Request $user)
-    {
-        $id = Auth::id();
-        $user = Auth::user();
-        $userprofile = $user->punyaProfile;
-
-        //If tidak punya funtion "punyaprofile" / masih kosong
-        if (!$userprofile) {
-            $profile = new UserProfile;
-
-            $profile->user_id = $id;
-
-            $profile->gender = request('gender');
-            $profile->phone = request('phone');
-
-            $user->punyaProfile()->save($profile);
+       if(Auth::user()) {
+           $user = User::find(Auth::user()->id);
+           
+           if($user) 
+           {
+               return view('user.edit')->withUser($user);
+            } 
+            else 
+            {
+                return redirect()->back();
+            }
         }
-
-        $user = User::find($id);
-
-        $user->name                   = request('name');
-        $user->punyaProfile->gender   = request('gender');
-        $user->punyaProfile->phone    = request('phone'); //punyaProfile is function in User Model relation one to one
-
-        //$user->push(); //For update data relational
-        $user->push();
-
-        return redirect()->back()->with("status", "Profil berhasil diupdate.");
+        else 
+            {
+                return redirect()->back();
+            }
     }
 
+    public function update(Request $request)
+    {
+        $user = User::find(Auth::user()->id);
 
+        if ($user) {
+
+            $validatedData = $request->validate([
+                'name' => 'required|min:3|max:255',
+                'gender' => 'boolean',
+            ]);
+
+            if ($request->hasFile('img_photo')) {
+                $filename = $request->img_photo->getClientOriginalName();
+    
+                // Save files to directory folder
+                $request->img_photo->storeAs('/images', $filename, 'public_uploads');
+
+                $user->name                 = $request->name;
+                $user->punyaProfile->gender = $request->gender;
+                $user->punyaProfile->phone = $request->phone;
+                $user->punyaProfile->img_photo = $filename;
+
+                $user->push();
+                
+                return redirect()->route('userprofile.index')->with('status', 'Profile Updated!');
+                    
+            } else {
+
+                $user->name                 = $request->name;
+                $user->punyaProfile->gender = $request->gender;
+                $user->punyaProfile->phone = $request->phone;
+
+                $user->push();
+                
+                return redirect()->route('userprofile.index')->with('status', 'Profile Updated!');
+
+            }
+        } 
+        else 
+        {
+            return redirect()->back();
+        }
+        
+    }
 
     /* ------ ACTIVATE JOIN SELLER---------- */
 
@@ -125,10 +148,9 @@ class UserProfileController extends Controller
         $userseller = $user->punyaSeller;
 
         //If tidak punya funtion "punyaprofile" / masih kosong
-        if (!$userseller) 
-        {
+        if (!$userseller) {
             $seller = new Seller;
- 
+
             $seller->user_id = $id;
 
             $seller->name = "";
@@ -136,12 +158,10 @@ class UserProfileController extends Controller
             $user->punyaSeller()->save($seller);
 
             return redirect()->route('signup-seller')->with('status', 'Item created successfully');
-        } 
-        else 
-        {
+        } else {
             $user = Auth::user();
             $userseller = $user->punyaSeller;
-            
+
             return view('seller.activate', compact('user'));
         }
     }
@@ -158,8 +178,7 @@ class UserProfileController extends Controller
 
     public function updatePassword(Request $request)
     {
-        if(Auth::user()->password == null) 
-        {
+        if (Auth::user()->password == null) {
 
             $validatedData = $request->validate([
                 'new-password' => 'required|string|min:8|confirmed',
@@ -170,16 +189,12 @@ class UserProfileController extends Controller
             $user->save();
 
             return redirect()->back()->with('status', "Password Berhasil diatur");
-        }
-        else 
-        {
-            if (!(Hash::check($request->get('current-password'), Auth::user()->password))) 
-            {
+        } else {
+            if (!(Hash::check($request->get('current-password'), Auth::user()->password))) {
                 return redirect()->back()->with('error', "Password lama tidak esuai");
             }
 
-            if (strcmp($request->get('current-password'), $request->get('new-password')) == 0)
-            {
+            if (strcmp($request->get('current-password'), $request->get('new-password')) == 0) {
                 return redirect()->back()->with('error', "Password baru harus berbeda dari password lama");
             }
 
@@ -195,4 +210,62 @@ class UserProfileController extends Controller
             return redirect()->back()->with('status', "Password berhasil diubah");
         }
     }
+
+
+
+        /* ------ EDIT & UPDATE FUNCTION OPTIONAL ---------- */
+
+        public function editUser()
+        {
+            //mengambil model User dengan di buat alias variabel $user
+            $pagename = 'Edit Profile';
+            $user = Auth::user();
+            $userprofile = $user->punyaProfile;
+    
+            return view('user.edit', compact('user', 'userprofile', 'pagename'));
+        }
+    
+    
+        public function updateUser(Request $user)
+        {
+            $id = Auth::id();
+            $user = Auth::user();
+            $userprofile = $user->punyaProfile;
+    
+            //If tidak punya funtion "punyaprofile" / masih kosong
+            if (!$userprofile) {
+                $profile = new UserProfile;
+    
+                $profile->user_id = $id;
+                $profile->gender = request('gender');
+                $profile->phone = request('phone');
+    
+                $user->punyaProfile()->save($profile);
+            }
+    
+            if ($user->hasFile('img_photo')) {
+                $filename = $user->img_photo->getClientOriginalName();
+    
+                // Save files to directory folder
+                $user->img_photo->storeAs('/images', $filename, 'public_uploads');
+            }
+    
+    
+    
+            $user = User::findOrFail($id);
+    
+            $user->name                     = request('name');
+            $user->punyaProfile->gender     = request('gender');
+            $user->punyaProfile->phone      = request('phone'); //punyaProfile is function in User Model relation one to one
+            
+            if ($user->punyaProfile->img_photo)
+            {
+                $user->punyaProfile->img_photo  = request($filename);
+            }
+    
+            //$user->push(); //For update data relational
+            $user->push();
+    
+            return redirect()->route('userprofile.index')->with("status", "Profil berhasil diupdate.");
+        }
 }

@@ -4,12 +4,16 @@
 
 
 <section class="container">
-    <nav aria-label="breadcrumb" class="">
-        <ol class="breadcrumb bg-white">
-            <li class="breadcrumb-item"><a href="{{ url()->previous() }}">
-                    < Back</a> </li> <li class="breadcrumb-item active" aria-current="page">{{ $pagename }}</li>
+    <nav aria-label="breadcrumb" class="mt-4">
+        <ol class="breadcrumb bg-white px-0">
+            <li class="breadcrumb-item">
+                <a href="{{ url()->previous() }}" class="">
+                    <i data-feather="arrow-left" width="16" height="16"></i> Back</a>
+            </li>
+            <li class="breadcrumb-item active text-truncate" aria-current="page">{{ $pagename }}</li>
         </ol>
     </nav>
+
 
     <h1 class="my-4">
         Edit Trips - {{ $product->name }}
@@ -30,7 +34,8 @@
 
         <div class="form-group">
             <label for="">Description</label>
-            <textarea name="description" id="description" class="form-control @error('description') is-invalid @enderror" autocomplete="description" placeholder="Berikan gambaran Perjalanan yang akan peserta kunjungi" autofocus>{{ $product->description }}</textarea>
+            <textarea name="description" id="description" class="form-control @error('description') is-invalid @enderror" autocomplete="description" placeholder="Berikan gambaran Perjalanan yang akan peserta kunjungi"
+                autofocus>{{ $product->description }}</textarea>
             @error('description')
             <span class="invalid-feedback" role="alert">{{ $message }}</span>
             @enderror
@@ -74,7 +79,8 @@
 
         <div class="form-group">
             <label for="meet_point">Meet Point</label>
-            <input value="{{ $product->meet_point }}" name="meet_point" id="meet_point" type="text" class="form-control @error('meet_point') is-invalid @enderror" required autocomplete="meet_point" placeholder="Tentukan Nama Lokasi Titik Temu Peserta" autofocus>
+            <input value="{{ $product->meet_point }}" name="meet_point" id="meet_point" type="text" class="form-control @error('meet_point') is-invalid @enderror" required autocomplete="meet_point"
+                placeholder="Tentukan Nama Lokasi Titik Temu Peserta" autofocus>
             @error('meet_point')
             <span class="invalid-feedback" role="alert">{{ $message }}</span>
             @enderror
@@ -91,7 +97,8 @@
 
         <div class="form-group">
             <label for="">Terms & Condition</label>
-            <textarea name="terms_condition" id="terms_condition" class="form-control @error('terms_condition') is-invalid @enderror" autocomplete="terms_condition" placeholder="Syarat & Ketentuan Trips" autofocus>{{ $product->terms_condition }}</textarea>
+            <textarea name="terms_condition" id="terms_condition" class="form-control @error('terms_condition') is-invalid @enderror" autocomplete="terms_condition" placeholder="Syarat & Ketentuan Trips"
+                autofocus>{{ $product->terms_condition }}</textarea>
             @error('terms_condition')
             <span class="invalid-feedback" role="alert">{{ $message }}</span>
             @enderror
@@ -115,10 +122,17 @@
             </div>
         </div>
 
+        <div class="row">
+            <div class="col">
+                <button type="submit" class="btn btn-primary mt-1">
+                    Simpan
+                </button>
+            </div>
 
-        <button type="submit" class="btn btn-primary mt-1">
-            Simpan
-        </button>
+            <div class="col">
+               
+            </div>
+        </div>
 
     </form>
 </section>

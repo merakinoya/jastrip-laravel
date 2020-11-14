@@ -46,12 +46,13 @@
         </div>
     </form>
 
-    <div class="d-none">
+    <div class="">
         <a href="{{ url('/login/google') }}" class="btn btn-outline-secondary btn-block">
             <img width="16px" style="margin:8px;" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
             {{ __('Sign in with Google') }}
         </a>
-        <a href="{{ url('/login/github') }}" class="btn btn-outline-secondary btn-block">{{ __('Sign in Github') }}</a>
+        <a href="{{ url('/login/facebook') }}" class="btn btn-block btn-outline-info d-none">{{ __('Sign In with Facebook') }}</a>
+        <a href="{{ url('/login/github') }}" class="btn btn-outline-secondary btn-block d-none">{{ __('Sign In with Github') }}</a>
     </div>
 </div>
 

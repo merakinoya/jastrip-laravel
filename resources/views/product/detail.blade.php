@@ -170,11 +170,11 @@
 
             </div>
             @if($product->dipunyaiUserProfile->phone)
-            <a href="https://wa.me/62{{ $product->dipunyaiUserProfile->phone }}?text=I'm%20interested%20in%20your%20car%20for%20sale" target="_blank" class="btn btn-primary btn-lg float-right">
+            <a href="https://wa.me/62{{ $product->dipunyaiUserProfile->phone }}?text={{ utf8_encode("Hallo, Saya tertarik melihat iklan trips Anda, Saya mau ikut join trips")}}" target="_blank" class="btn btn-primary btn-lg float-right">
                 <i data-feather="message-circle"></i> Hubungi
             </a>
             @else
-            <a href="https://wa.me/6282219259952?text=I'm%20interested%20in%20your%20car%20for%20sale" target="_blank" class="btn btn-primary btn-lg float-right">
+            <a href="https://wa.me/6282219259952?text={{ utf8_encode("Hallo admin, Saya tertarik melihat iklan trips Anda, Saya mau ikut join trips")}}" target="_blank" class="btn btn-primary btn-lg float-right">
                 <i data-feather="message-circle"></i> Hubungi
             </a>
             @endif

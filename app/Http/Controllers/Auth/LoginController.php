@@ -54,13 +54,13 @@ class LoginController extends Controller
     public function redirectToProvider($provider)
     {
         //return Socialite::driver('google')->redirect();
-        return Socialite::driver($provider)->user();
+        return Socialite::driver($provider)->redirect();
     }
 
 
     public function handleProviderCallback($provider)
     {
-        //$user = Socialite::driver('google')->user();
+        //$user = Socialite::driver('google')->stateless()->user();
         $getDataSocial = Socialite::driver($provider)->user();
 
         $authUser = $this->findOrCreateUser($getDataSocial, $provider);
@@ -69,7 +69,7 @@ class LoginController extends Controller
         return redirect('/');
     }
 
-     /**
+    /**
      * If a user has registered before using social auth, return the user
      * else, create a new user object.
      * @param  $user Socialite user object
@@ -85,39 +85,35 @@ class LoginController extends Controller
 
         if (!$user) {
             $user = User::create([
-               'name'     => $getDataSocial->name,
-               'email'    => $getDataSocial->email,
-               'provider' => $provider,
-               'provider_id' => $getDataSocial->id
-           ]);
+                'name'     => $getDataSocial->name,
+                'email'    => $getDataSocial->email,
+                'provider' => $provider,
+                'provider_id' => $getDataSocial->id
+            ]);
 
-           //Attach role user Customer
-         $role_user  = Roles::where('id', '1')->first();
-         $user->roles()->attach($role_user);
- 
-         //Add relation with data to UserProfile
-         $profile = new UserProfile;
-         $profile->img_photo = $getDataSocial->getAvatar();
-         $user->punyaProfile()->save($profile);
+            //Attach role user Customer
+            $role_user  = Roles::where('id', '1')->first();
+            $user->roles()->attach($role_user);
 
-         }
-         return $user;
+            //Add relation with data to UserProfile
+            $profile = new UserProfile;
+            $profile->img_photo = $getDataSocial->getAvatar();
+            $user->punyaProfile()->save($profile);
+        }
+        return $user;
     }
 
     public function findOrCreateUserA($user, $provider)
     {
         $authbyEmail = User::where('email', $user->email)->first();
         $authUser = User::where('provider_id', $user->id)->first();
-        
-        if ($authUser)
-        {
+
+        if ($authUser) {
             return $authUser;
-        }
-        else
-        {
+        } else {
             $data = User::create([
                 'name'     => $user->name,
-                'email'    => !empty($user->email)? $user->email : '' ,
+                'email'    => !empty($user->email) ? $user->email : '',
                 'provider' => $provider,
                 'provider_id' => $user->id
             ]);

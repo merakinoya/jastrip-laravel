@@ -6,8 +6,11 @@
 <section class="container">
 
     @if(session('status'))
-    <div class="alert alert-primary" role="alert">
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
         {{ session('status') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
     @endif
 
@@ -46,7 +49,7 @@
                         {{ Auth::user()->name }}
                     </h2>
 
-                    <a href="{{ route('userprofile.edit', $user) }}">Edit Profil</a>
+                    <a href="{{ route('userprofile.edit') }}">Edit Profil</a>
                 </div>
             </div>
 
@@ -62,10 +65,10 @@
                     <a class="nav-item nav-link text-nowrap @if(!session('error')) active @endif" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Daftar Seller</a>
                     @endif
 
-                    <!--
+                    
                     <a class="nav-item nav-link text-nowrap" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Transaction</a>
                     <a class="nav-item nav-link text-nowrap" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Settings</a>
-                    -->
+                    
                     <a class="nav-item nav-link text-nowrap  @if(session('error')) active @endif" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Change
                         Password</a>
 
@@ -75,6 +78,18 @@
 
 
         <div class="col-md-8 mt-3">
+
+            @if(Auth::user()->punyaProfile->gender == NULL || Auth::user()->punyaProfile->phone == NULL || Auth::user()->punyaProfile->img_photo == NULL )
+            <div class="alert alert-info alert-dismissible fade show mb-1 " role="alert">
+                <strong>💁🏻 Data Profil Kamu belum lengkao</strong> silakan lengkapi profil mu.
+                <button type="button" class="close">
+                    <i data-feather="arrow-right-circle"></i>
+                </button>
+                <a href="{{ route('userprofile.edit', $user) }}" class="stretched-link"></a>
+            </div>
+            <hr>
+            @endif
+
             <div class="tab-content" id="v-pills-tabContent">
 
                 <div class="tab-pane fade @if(!session('error')) show active @endif" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
@@ -102,8 +117,9 @@
                         <div class="col mb-4">
                             <div class="card border-0 shadow rounded-lg">
                                 <a class="position-absolute-custom text-white" href="" data-toggle="tooltip" data-placement="top" title="Wishlist">
-                                    <i data-feather="{{ ( Auth::user()->punyaSeller->id != $dataproduct->seller_id )? "heart" : "edit" }}"></i>
+                                    <i data-feather="{{ ( Auth::user()->punyaSeller->id != $dataproduct->seller_id )? "heart" : "eye" }}"></i>
                                 </a>
+                                
 
                                 @if(!$dataproduct->img)
                                 <img class="card-img-top rounded-top" src="https://source.unsplash.com/x9I-6yoXrXE" alt="Product Photo" />
@@ -120,15 +136,47 @@
                                         <small>{{ date('d M Y',strtotime($dataproduct->start_at)) }}</small>-<small>{{ date('d M Y',strtotime($dataproduct->finish_at)) }}</small>
                                     </p>
                                     <p class="card-text text-muted text-truncate">{{ $dataproduct->description }}
-                                        <a href="{{ route('products.show', $dataproduct->id) }}" class="text-muted stretched-link">detail</a>
+                                        <a href="{{ route('products.show', $dataproduct->id) }}" class="text-muted" target="_blank">detail</a>
                                     </p>
+
+                                    <small class="text-black-50">Updated {{ date('d M Y',strtotime($dataproduct->updated_at)) }} </small>
                                 </div>
 
                                 <div class="card-footer">
-                                    <small class="text-black-50">Updated {{ date('d M Y',strtotime($dataproduct->updated_at)) }} </small>
 
-                                    <a href="{{ route('products.edit', $dataproduct->id) }}" class="btn stretched-link  {{ ( Auth::user()->punyaSeller->id != $dataproduct->seller_id )? "d-none" : "" }}" style="position: relative;">Edit</a>
-                                    <button class="btn btn-outline-dark float-right">Contact</button>
+                                    <form action="{{ route('products.destroy', $dataproduct->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <a href="{{ route('products.edit', $dataproduct->id) }}" class="btn btn-outline-dark float-right  {{ ( Auth::user()->punyaSeller->id != $dataproduct->seller_id )? "d-none" : "" }}" style="position: relative;">Edit</a>
+                    
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-link text-muted float-right" data-toggle="modal" data-target="#exampleModal">
+                                            Delete
+                                        </button>
+                    
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">😱 Yakin ingin hapus produk ini?</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Produk ini tidak akan bisa ditampilkan kembali
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Batalkan</button>
+                                                        <button type="submit" class="btn btn-danger">Ya, Hapus</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                    
+                                    </form>
+
                                 </div>
                             </div>
                         </div>

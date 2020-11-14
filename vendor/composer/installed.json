@@ -1055,24 +1055,24 @@
     },
     {
         "name": "guzzlehttp/guzzle",
-        "version": "7.1.1",
-        "version_normalized": "7.1.1.0",
+        "version": "7.2.0",
+        "version_normalized": "7.2.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/guzzle/guzzle.git",
-            "reference": "7427d6f99df41cc01f33cd59832f721c150ffdf3"
+            "reference": "0aa74dfb41ae110835923ef10a9d803a22d50e79"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/guzzle/guzzle/zipball/7427d6f99df41cc01f33cd59832f721c150ffdf3",
-            "reference": "7427d6f99df41cc01f33cd59832f721c150ffdf3",
+            "url": "https://api.github.com/repos/guzzle/guzzle/zipball/0aa74dfb41ae110835923ef10a9d803a22d50e79",
+            "reference": "0aa74dfb41ae110835923ef10a9d803a22d50e79",
             "shasum": ""
         },
         "require": {
             "ext-json": "*",
-            "guzzlehttp/promises": "^1.0",
-            "guzzlehttp/psr7": "^1.6.1",
-            "php": "^7.2.5",
+            "guzzlehttp/promises": "^1.4",
+            "guzzlehttp/psr7": "^1.7",
+            "php": "^7.2.5 || ^8.0",
             "psr/http-client": "^1.0"
         },
         "provide": {
@@ -1080,8 +1080,8 @@
         },
         "require-dev": {
             "ext-curl": "*",
-            "php-http/client-integration-tests": "dev-phpunit8",
-            "phpunit/phpunit": "^8.5.5",
+            "php-http/client-integration-tests": "^3.0",
+            "phpunit/phpunit": "^8.5.5 || ^9.3.5",
             "psr/log": "^1.1"
         },
         "suggest": {
@@ -1089,7 +1089,7 @@
             "ext-intl": "Required for Internationalized Domain Name (IDN) support",
             "psr/log": "Required for using the Log middleware"
         },
-        "time": "2020-09-30T08:51:17+00:00",
+        "time": "2020-10-10T11:47:56+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1551,17 +1551,17 @@
     },
     {
         "name": "laravel/framework",
-        "version": "v7.28.3",
-        "version_normalized": "7.28.3.0",
+        "version": "v7.28.4",
+        "version_normalized": "7.28.4.0",
         "source": {
             "type": "git",
             "url": "https://github.com/laravel/framework.git",
-            "reference": "b0942c391975972b1a54b2dc983e33a239f169a9"
+            "reference": "de187e9200948bab6975167e480950abcd5efdac"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/laravel/framework/zipball/b0942c391975972b1a54b2dc983e33a239f169a9",
-            "reference": "b0942c391975972b1a54b2dc983e33a239f169a9",
+            "url": "https://api.github.com/repos/laravel/framework/zipball/de187e9200948bab6975167e480950abcd5efdac",
+            "reference": "de187e9200948bab6975167e480950abcd5efdac",
             "shasum": ""
         },
         "require": {
@@ -1675,7 +1675,7 @@
             "symfony/psr-http-message-bridge": "Required to use PSR-7 bridging features (^2.0).",
             "wildbit/swiftmailer-postmark": "Required to use Postmark mail driver (^3.0)."
         },
-        "time": "2020-09-17T14:23:26+00:00",
+        "time": "2020-10-06T14:22:09+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1786,38 +1786,38 @@
     },
     {
         "name": "laravel/socialite",
-        "version": "v4.4.1",
-        "version_normalized": "4.4.1.0",
+        "version": "v5.0.1",
+        "version_normalized": "5.0.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/laravel/socialite.git",
-            "reference": "80951df0d93435b773aa00efe1fad6d5015fac75"
+            "reference": "61ad2b5f98e28f8e4e479851f8744b43ebbb9b46"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/laravel/socialite/zipball/80951df0d93435b773aa00efe1fad6d5015fac75",
-            "reference": "80951df0d93435b773aa00efe1fad6d5015fac75",
+            "url": "https://api.github.com/repos/laravel/socialite/zipball/61ad2b5f98e28f8e4e479851f8744b43ebbb9b46",
+            "reference": "61ad2b5f98e28f8e4e479851f8744b43ebbb9b46",
             "shasum": ""
         },
         "require": {
             "ext-json": "*",
             "guzzlehttp/guzzle": "^6.0|^7.0",
-            "illuminate/http": "~5.7.0|~5.8.0|^6.0|^7.0",
-            "illuminate/support": "~5.7.0|~5.8.0|^6.0|^7.0",
+            "illuminate/http": "^6.0|^7.0|^8.0",
+            "illuminate/support": "^6.0|^7.0|^8.0",
             "league/oauth1-client": "^1.0",
-            "php": "^7.1.3"
+            "php": "^7.2"
         },
         "require-dev": {
-            "illuminate/contracts": "~5.7.0|~5.8.0|^6.0|^7.0",
+            "illuminate/contracts": "^6.0|^7.0",
             "mockery/mockery": "^1.0",
-            "orchestra/testbench": "^3.7|^3.8|^4.0|^5.0",
-            "phpunit/phpunit": "^7.0|^8.0"
+            "orchestra/testbench": "^4.0|^5.0|^6.0",
+            "phpunit/phpunit": "^8.0"
         },
-        "time": "2020-06-03T13:30:03+00:00",
+        "time": "2020-09-12T14:40:16+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "4.x-dev"
+                "dev-master": "5.x-dev"
             },
             "laravel": {
                 "providers": [
@@ -2795,17 +2795,17 @@
     },
     {
         "name": "nesbot/carbon",
-        "version": "2.40.1",
-        "version_normalized": "2.40.1.0",
+        "version": "2.41.2",
+        "version_normalized": "2.41.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/briannesbitt/Carbon.git",
-            "reference": "d9a76d8b7eb0f97cf3a82529393245212f40ba3b"
+            "reference": "35959c93ada06469107a05df6b15b65074a960cf"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/d9a76d8b7eb0f97cf3a82529393245212f40ba3b",
-            "reference": "d9a76d8b7eb0f97cf3a82529393245212f40ba3b",
+            "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/35959c93ada06469107a05df6b15b65074a960cf",
+            "reference": "35959c93ada06469107a05df6b15b65074a960cf",
             "shasum": ""
         },
         "require": {
@@ -2824,7 +2824,7 @@
             "phpunit/phpunit": "^7.5 || ^8.0",
             "squizlabs/php_codesniffer": "^3.4"
         },
-        "time": "2020-09-23T08:17:37+00:00",
+        "time": "2020-10-10T23:35:06+00:00",
         "bin": [
             "bin/carbon"
         ],
@@ -5534,12 +5534,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/console.git",
-            "reference": "04c3a31fe8ea94b42c9e2d1acc93d19782133b00"
+            "reference": "ae789a8a2ad189ce7e8216942cdb9b77319f5eb8"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/console/zipball/04c3a31fe8ea94b42c9e2d1acc93d19782133b00",
-            "reference": "04c3a31fe8ea94b42c9e2d1acc93d19782133b00",
+            "url": "https://api.github.com/repos/symfony/console/zipball/ae789a8a2ad189ce7e8216942cdb9b77319f5eb8",
+            "reference": "ae789a8a2ad189ce7e8216942cdb9b77319f5eb8",
             "shasum": ""
         },
         "require": {
@@ -7712,17 +7712,17 @@
     },
     {
         "name": "symfony/translation-contracts",
-        "version": "v2.2.0",
-        "version_normalized": "2.2.0.0",
+        "version": "v2.3.0",
+        "version_normalized": "2.3.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/translation-contracts.git",
-            "reference": "77ce1c3627c9f39643acd9af086631f842c50c4d"
+            "reference": "e2eaa60b558f26a4b0354e1bbb25636efaaad105"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/translation-contracts/zipball/77ce1c3627c9f39643acd9af086631f842c50c4d",
-            "reference": "77ce1c3627c9f39643acd9af086631f842c50c4d",
+            "url": "https://api.github.com/repos/symfony/translation-contracts/zipball/e2eaa60b558f26a4b0354e1bbb25636efaaad105",
+            "reference": "e2eaa60b558f26a4b0354e1bbb25636efaaad105",
             "shasum": ""
         },
         "require": {
@@ -7731,11 +7731,11 @@
         "suggest": {
             "symfony/translation-implementation": ""
         },
-        "time": "2020-09-07T11:33:47+00:00",
+        "time": "2020-09-28T13:05:58+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "2.2-dev"
+                "dev-master": "2.3-dev"
             },
             "thanks": {
                 "name": "symfony/contracts",

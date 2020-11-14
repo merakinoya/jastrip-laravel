@@ -184,10 +184,13 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 
+    <!-- Datep Range Picker -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.5.9/lottie.min.js"></script>
     <script src="{{ asset('/js/script.js') }}"></script>
@@ -196,6 +199,78 @@
     <script>
         // Feather Icon
         feather.replace()
+
+        //Date Range Picker
+    $(function() {
+    $('input[name="start_at"]').daterangepicker({
+        "autoUpdateInput": false,
+        "showDropdowns": true,
+        "minYear": 2019,
+        "maxYear": 2025,
+        "timePicker24Hour": true,
+        "timePickerSeconds": true,
+        "maxSpan": {
+            "days": 120
+        },
+        "locale": {
+                "format": "DD MMM YYYY",
+                "separator": " - ",
+                "applyLabel": "Terapkan",
+                "cancelLabel": "Batalkan",
+                "fromLabel": "From",
+                "toLabel": "To",
+                "customRangeLabel": "Custom",
+                "weekLabel": "W",
+                "daysOfWeek": [
+                    "Su",
+                    "Mo",
+                    "Tu",
+                    "We",
+                    "Th",
+                    "Fr",
+                    "Sa"
+                ],
+                "monthNames": [
+                    "January",
+                    "February",
+                    "March",
+                    "April",
+                    "May",
+                    "June",
+                    "July",
+                    "August",
+                    "September",
+                    "October",
+                    "November",
+                    "December"
+                ],
+                "firstDay": 1
+            },
+
+
+        "format": "YYYY-MM-DD hh:mm:ss",
+        "startDate" : new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
+        "endDate" : new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
+        "minDate" : new Date(new Date().getTime() + 24 * 60 * 60 * 1000)
+    });
+
+    $('input[name="start_at"]').on('apply.daterangepicker', 
+    function(ev, picker) {
+        $(this).val(picker.startDate.format('YYYY-MM-DD') + ' - ' + picker.endDate.format('YYYY-MM-DD'));
+        $("#date_start").val(picker.startDate.format('YYYY-MM-DD'));
+        $("#date_end").val(picker.endDate.format('YYYY-MM-DD'));
+    });
+
+    $('input[name="start_at"]').on('cancel.daterangepicker', function(ev, picker) {
+        $(this).val('');
+    });
+
+});
+
+
+
+
+
 
         //Lottie Animation
         var animation = bodymovin.loadAnimation({
@@ -206,6 +281,7 @@
             autoplay: true, // Optional
             name: "Hello World", // Name for future reference. Optional.
         });
+
 
     </script>
 
