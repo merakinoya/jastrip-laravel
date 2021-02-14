@@ -28,6 +28,9 @@
     </div>
 </section>
 
+
+<div id="googlemaps"></div>
+
 <section class="section">
     <div class="container">
 

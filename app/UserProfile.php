@@ -25,4 +25,11 @@ class UserProfile extends Model
     {
         return $this->hasMany('App\Products','userprofile_id','id');
     }
+
+    public function punyaBooking()
+    {
+        return $this->hasMany('App\Booking','userprofile_id','id');
+    }
 }
+
+

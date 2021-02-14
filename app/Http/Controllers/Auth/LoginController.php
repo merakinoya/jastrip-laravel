@@ -99,7 +99,12 @@ class LoginController extends Controller
             $profile = new UserProfile;
             $profile->img_photo = $getDataSocial->getAvatar();
             $user->punyaProfile()->save($profile);
+
+            $seller = new Seller;
+            $seller->name = "My Store";
+            $user->punyaSeller()->save($seller);
         }
+        
         return $user;
     }
 

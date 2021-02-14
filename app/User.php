@@ -6,12 +6,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 use Laravel\Passport\HasApiTokens;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 use Illuminate\Support\Str;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
-    use  HasApiTokens, Notifiable;
+    use HasApiTokens, Notifiable;
+    
 
     /**
      * The attributes that are mass assignable.
@@ -72,6 +74,11 @@ class User extends Authenticatable
     public function punyaProducts()
     {
         return $this->hasMany('App\Products','user_id','id')->latest();;
+    }
+
+    public function punyaBooking()
+    {
+        return $this->hasMany('App\Booking','user_id','id')->latest();;
     }
 
     public function punyaSellerAndProduct()

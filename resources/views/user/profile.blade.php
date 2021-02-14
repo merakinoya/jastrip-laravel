@@ -3,7 +3,7 @@
 @section('content')
 
 
-<section class="container">
+<section class="container container-xl">
 
     @if(session('status'))
     <div class="alert alert-info alert-dismissible fade show" role="alert">
@@ -58,6 +58,7 @@
             <div class="nav-scroller">
                 <div class="nav nav-pills scrollable flex-sm-column flex-row sticky-top-tabs" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 
+
                     @if(Auth::user()->punyaSeller)
                     <a class="nav-item nav-link text-nowrap @if(!session('error')) active @endif" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Toko
                         {{ $user->punyaSeller->name }}</a>
@@ -65,10 +66,10 @@
                     <a class="nav-item nav-link text-nowrap @if(!session('error')) active @endif" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Daftar Seller</a>
                     @endif
 
-                    
                     <a class="nav-item nav-link text-nowrap" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Transaction</a>
+
                     <a class="nav-item nav-link text-nowrap" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Settings</a>
-                    
+
                     <a class="nav-item nav-link text-nowrap  @if(session('error')) active @endif" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Change
                         Password</a>
 
@@ -80,8 +81,8 @@
         <div class="col-md-8 mt-3">
 
             @if(Auth::user()->punyaProfile->gender == NULL || Auth::user()->punyaProfile->phone == NULL || Auth::user()->punyaProfile->img_photo == NULL )
-            <div class="alert alert-info alert-dismissible fade show mb-1 " role="alert">
-                <strong>💁🏻 Data Profil Kamu belum lengkao</strong> silakan lengkapi profil mu.
+            <div class="alert alert-info alert-dismissible fade show mb-1" role="alert" style="background-color: #ffffff00;">
+                <strong>💁🏻 Data Profil Kamu belum lengkap</strong> silakan lengkapi profil mu.
                 <button type="button" class="close">
                     <i data-feather="arrow-right-circle"></i>
                 </button>
@@ -119,7 +120,7 @@
                                 <a class="position-absolute-custom text-white" href="" data-toggle="tooltip" data-placement="top" title="Wishlist">
                                     <i data-feather="{{ ( Auth::user()->punyaSeller->id != $dataproduct->seller_id )? "heart" : "eye" }}"></i>
                                 </a>
-                                
+
 
                                 @if(!$dataproduct->img)
                                 <img class="card-img-top rounded-top" src="https://source.unsplash.com/x9I-6yoXrXE" alt="Product Photo" />
@@ -147,13 +148,14 @@
                                     <form action="{{ route('products.destroy', $dataproduct->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <a href="{{ route('products.edit', $dataproduct->id) }}" class="btn btn-outline-dark float-right  {{ ( Auth::user()->punyaSeller->id != $dataproduct->seller_id )? "d-none" : "" }}" style="position: relative;">Edit</a>
-                    
+                                        <a href="{{ route('products.edit', $dataproduct->id) }}" class="btn btn-outline-dark float-right  {{ ( Auth::user()->punyaSeller->id != $dataproduct->seller_id )? "d-none" : "" }}"
+                                            style="position: relative;">Edit</a>
+
                                         <!-- Button trigger modal -->
                                         <button type="button" class="btn btn-link text-muted float-right" data-toggle="modal" data-target="#exampleModal">
                                             Delete
                                         </button>
-                    
+
                                         <!-- Modal -->
                                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered">
@@ -174,7 +176,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                    
+
                                     </form>
 
                                 </div>
@@ -189,41 +191,141 @@
                 <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                     <h4 class="font-weight-bolder mb-4">Transaction</h4>
                     <div class="table-responsive">
-                        <table class="table table-hover">
+                        <table class="table table-hover w-100">
                             <thead>
                                 <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Transaction</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col">Date</th>
-                                    <th scope="col">Action</th>
+                                    <th scope="col">BookID</th>
+                                    <th scope="col">Trips Name</th>
+                                    <th scope="col">Participant</th>
+                                    <th scope="col">Expire Date</th>
+
+                                    <th colspan="3" class="text-center">Action</th>
                                 </tr>
                             </thead>
+
                             <tbody>
+                                @foreach(Auth::user()->punyaBooking as $booking )
+
                                 <tr>
-                                    <th scope="row">001</th>
-                                    <td>Mark</td>
-                                    <td>Done</td>
-                                    <td>12 March 2020</td>
-                                    <td>Show</td>
+                                    <th scope="row">{{ $booking->id }}</th>
+
+                                    <td>
+                                        <a href="{{ route('products.show', $booking->dipunyaiProduct->id) }}" target="_blank">
+                                            {{ $booking->dipunyaiProduct->name }}
+                                        </a>
+                                    </td>
+
+                                    <td>{{ $booking->participant_amount }} Orang</td>
+
+                                    <td>
+                                        {{ date('d M Y, h:i:sa',strtotime($booking->expired_at)) }}
+                                        <!--
+                                            <span id="expired_at" class="d-none"> $booking->expired_at </span>
+                                            <span id="demo"></p>
+                                        -->
+                                    </td>
+
+                                    <td>
+                                        @if($booking->canceled_at == NULL)
+                                            <a class="btn btn-outline-primary btn-sm text-wrap">Bayar Sekarang</a>
+                                        @else
+                                            <a class="badge rounded-pill bg-light text-dark text-wrap">Dibatalakn</a>
+                                        @endif
+                                    </td>
+
+                                    @if($booking->canceled_at == NULL)
+                                    <td>
+                                        <form method="POST" action="{{ route('booking.cancel', $booking->id) }}" enctype="multipart/form-data" class="">
+                                            @csrf
+                                            @method('PATCH')
+
+                                            <!-- Button trigger modal -->
+                                            <button type="button" class="btn btn-link btn-sm text-muted float-right" data-toggle="modal" data-target="#modal-cancel-booking">
+                                                Batalkan Booking
+                                            </button>
+
+                                            <div class="modal fade" id="modal-cancel-booking" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Alasan Cancel</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form>
+                                                                <div class="mb-3">
+                                                                    <label for="reason" class="col-form-label">Alasan Batal</label>
+                                                                    <textarea name="reason" id="reason" cols="10" rows="10" class="form-control"></textarea>
+                                                                </div>
+                                                            </form>
+
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Kembali</button>
+                                                            <button type="submit" class="btn btn-danger">Ya, Batalkan</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </form>
+                                    </td>
+
+                                    @else
+
+                                    <td>
+                                        <form action="{{ route('booking.delete', $booking->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+
+                                            <!-- Button trigger modal -->
+                                            <button type="button" class="btn btn-link btn-sm text-muted float-right" data-toggle="modal" data-target="#modal-delete-booking">
+                                                Delete
+                                            </button>
+
+                                            <div class="modal fade" id="modal-delete-booking" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">😱 Yakin ingin hapus produk ini?</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Produk ini tidak akan bisa ditampilkan kembali
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Batalkan</button>
+                                                            <button type="submit" class="btn btn-danger">Ya, Hapus</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </form>
+                                    </td>
+
+                                    @endif
+
+
+
                                 </tr>
-                                <tr>
-                                    <th scope="row">002</th>
-                                    <td>Jacob</td>
-                                    <td>Failed</td>
-                                    <td>12 March 2020</td>
-                                    <td>Show</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">003</th>
-                                    <td colspan="2">Larry the Bird</td>
-                                    <td>12 March 2020</td>
-                                    <td>Show</td>
-                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
+
                     </div>
                 </div>
+
+
+
+
+
+
+
                 <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
                     <h4 class="font-weight-bolder">Settings</h4>
                 </div>

@@ -17,6 +17,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         // 
         'App\Model' => 'App\Policies\ModelPolicy',
+        'App\LocationMap' => 'App\Policies\LocationMapPolicy',
     ];
 
     /**
@@ -29,5 +30,9 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Passport::routes();
+
+        Gate::define('manage_locationmap', function () {
+            return auth()->check();
+        });
     }
 }

@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Carbon;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,5 +30,8 @@ class AppServiceProvider extends ServiceProvider
         //
         Schema::defaultStringLength(191);
         Blade::withoutDoubleEncoding();
+        
+        config(['app.locale' => 'id']);
+        Carbon::setLocale('id');
     }
 }

@@ -7,7 +7,7 @@
     <h1 class="title"> {{ __('Login') }}</h1>
 
     <!-- FORM -->
-    <form method="POST" action="{{ route('login') }}"> 
+    <form method="POST" action="{{ route('login') }}">
         @csrf
 
         <!-- EMAIL -->
@@ -40,14 +40,14 @@
 
         <!-- BUTTON -->
         <div class="mt-4  d-flex flex-wrap">
-                <button type="submit" class="btn btn-primary mb-4">{{ __('Login') }}</button>
+            <button type="submit" class="btn btn-primary mb-4">{{ __('Login') }}</button>
 
-                <a class="btn btn-link" href="{{ route('register') }}">Belum punya akun? Daftar di sini</a>
+            <a class="btn btn-link" href="{{ route('register') }}">Belum punya akun? Daftar di sini</a>
         </div>
     </form>
 
     <div class="">
-        <a href="{{ url('/login/google') }}" class="btn btn-outline-secondary btn-block">
+        <a href="{{ url('/login/google') }}" class="btn btn-outline-dark btn-block">
             <img width="16px" style="margin:8px;" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
             {{ __('Sign in with Google') }}
         </a>

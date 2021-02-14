@@ -17,6 +17,7 @@ use App\Role;
 use App\UserProfile;
 use App\Seller;
 use App\Products;
+use App\Booking;
 
 
 class UserProfileController extends Controller
@@ -27,9 +28,9 @@ class UserProfileController extends Controller
         //
         $id = Auth::id();
         $user = Auth::user();
-
         $words = explode(" ", $user->name);
         $acronym = "";
+
 
         return view('user.profile', compact('user', 'words', 'acronym'));
     }
@@ -153,7 +154,7 @@ class UserProfileController extends Controller
 
             $seller->user_id = $id;
 
-            $seller->name = "";
+            $seller->name = "My Store";
 
             $user->punyaSeller()->save($seller);
 

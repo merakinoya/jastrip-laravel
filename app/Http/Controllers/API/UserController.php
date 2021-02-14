@@ -16,28 +16,10 @@ use Carbon\Carbon;
 use App\User;
 use App\Roles;
 use App\UserProfile;
+use App\Seller;
 
 class UserController extends Controller
 {
-
-    public function signup(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|string|email|unique:users',
-            'password' => 'required|string|confirmed'
-        ]);
-        $user = new User([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password)
-        ]);
-        $user->save();
-        return response()->json([
-            'message' => 'Successfully created user!'
-        ], 201);
-    }
-
 
     public function signin(Request $request)
     {
@@ -55,15 +37,15 @@ class UserController extends Controller
         $user = $request->user();
         $tokenResult = $user->createToken('Personal Access Token');
         $token = $tokenResult->token;
+
         if ($request->remember_me)
-            $token->expires_at = Carbon::now()->addWeeks(1);
+        $token->expires_at = Carbon::now()->addWeeks(1);
         $token->save();
+
         return response()->json([
             'access_token' => $tokenResult->accessToken,
             'token_type' => 'Bearer',
-            'expires_at' => Carbon::parse(
-                $tokenResult->token->expires_at
-            )->toDateTimeString()
+            'expires_at' => Carbon::parse($tokenResult->token->expires_at)->toDateTimeString()
         ]);
     }
 
@@ -80,21 +62,11 @@ class UserController extends Controller
         ]);
     }
 
-    /**
-     * Get the authenticated User
-     *
-     * @return [json] user object
-     */
-    public function user(Request $request)
-    {
-        return response()->json($request->user());
-    }
-
 
     public function login(Request $request)
     {
         $validasi = $request->validate([
-            'email' => 'required|string|email|max:255|unique',
+            'email' => 'required|string|email|max:255',
             'password' => 'required|string|min:8',
             'remember_me' => 'boolean'
         ]);
@@ -103,14 +75,20 @@ class UserController extends Controller
             return response(['message' => 'Invalid Credentials']);
         }
 
-        if (Auth::attempt($validasi)) {
-            $user = Auth::user();
-            $token = $user->createToken('api_token')->accessToken; //createToken in VSCode undifinde but still working
-            return response()->json(['user' => $user, 'api_token' => $token], 200);
-        } else {
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
+
+        $user = Auth::user();
+        $token = $user->createToken('access_token')->accessToken; //createToken in VSCode undifinde but still working
+        
+        return response()->json([
+            'user' => $user,
+            'access_token' => $token
+        ], 200);
+
     }
+
+
+    
+    // 127.0.0.1:8000/API/register
 
     public function register(Request $request)
     {
@@ -141,14 +119,33 @@ class UserController extends Controller
         $profile = new UserProfile;
         $user->punyaProfile()->save($profile);
 
-        $token = $user->createToken('api_token')->accessToken;
-        return response()->json(['user' => $user, 'api_token' => $token], 200);
+        $seller = new Seller;
+        $seller->name = "My Store";
+        $user->punyaSeller()->save($seller);
+  
+        $accessToken = $user->createToken('authToken')->accessToken;
+
+        return response()->json([
+            'message' => 'Register successfully',
+            'user' => $user,
+            'access_token' => $accessToken
+        ], 200);
     }
 
 
-    public function details()
+
+    /**
+     * Get the authenticated User
+     *
+     * @return [json] user object
+     */
+    public function userAccount()
     {
         $user = Auth::user();
-        return response()->json(['success' => $user], $this->successStatus);
+
+        return response()->json([
+            'message' => 'User Account is show',
+            'data' => $user
+        ], 200);
     }
 }

@@ -26,7 +26,7 @@
                     <!--
                     <span class="badge badge-info mb-2 mr-2">Camp</span>
                     -->
-                    <h4 class="card-title mb-1 font-weight-bold text-black text-capitalize text-truncate">{{ $dataproduct->name }}</h4>
+                    <h4 class="card-title mb-1 font-weight-bold text-black text-capitalize text-truncate">{{ $dataproduct->name }}-{{ $dataproduct->id }} </h4>
                     <p><small> 2 days</small> • <small>{{ $dataproduct->total_participant }} orang</small>
                         <br>
                         <small>{{ date('d M Y',strtotime($dataproduct->start_at)) }}</small>-<small>{{ date('d M Y',strtotime($dataproduct->finish_at)) }}</small>

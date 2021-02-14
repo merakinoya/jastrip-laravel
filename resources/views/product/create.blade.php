@@ -35,7 +35,7 @@
         </div>
 
 
-        <hr class="my-3" style="border-top: 8px solid rgba(0, 0, 0, 0.05);">
+        <hr class="my-3" style="border-top: 8px solid rgba(0, 0, 0, 0.05); border-radius: 2px;">
 
         <div class="row">
             <div class="form-group col-md-3">
@@ -57,12 +57,14 @@
         </div>
 
 
-        <hr class="my-3" style="border-top: 8px solid rgba(0, 0, 0, 0.05);">
+        <hr class="my-3" style="border-top: 8px solid rgba(0, 0, 0, 0.05); border-radius: 2px;">
 
         <div class="row">
             <div class="form-group col-md-3">
                 <label for="price">Price</label>
-                <input name="price" id="price" value="{{ old('price') }}" type="number" class="form-control @error('price') is-invalid @enderror" placeholder="Rp" />
+                <input name="price" id="price" value="{{ old('price') }}" type="number" format='000.00' class="form-control @error('price') is-invalid @enderror" placeholder="Rp" >
+                
+                
                 @error('price')
                 <span class="invalid-feedback" role="alert">{{ $message }}</span>
                 @enderror

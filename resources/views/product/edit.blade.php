@@ -22,7 +22,7 @@
 
     <form method="POST" action="{{ route('products.update', $product->id) }}" enctype="multipart/form-data" class="">
         @csrf
-        {{ method_field('PUT') }}
+        {{ method_field('PATCH') }}
 
         <div class="form-group">
             <label for="">Event Name</label>
@@ -59,23 +59,31 @@
             </div>
         </div>
 
+
+        <hr class="my-3" style="border-top: 8px solid rgba(0, 0, 0, 0.05); border-radius: 2px;">
+
         <div class="row">
-            <div class="form-group col">
-                <label for="">Start Date</label>
-                <input value="{{ date('yy-m-d',strtotime($product->start_at)) }}" name="start_at" id="start_at" type="date" class="form-control @error('start_at') is-invalid @enderror">
+            <div class="form-group col-md-3">
+                <label for="start_at">Start Date</label>
+                <input name="start_at" id="date_start" value="{{ date('yy-m-d',strtotime($product->start_at)) }}" type="text" class="form-control @error('start_at') is-invalid @enderror" placeholder="Tanggal Pendakian" />
+
                 @error('start_at')
                 <span class="invalid-feedback" role="alert">{{ $message }}</span>
                 @enderror
             </div>
 
-            <div class="form-group col">
-                <label for="">Finish Date</label>
-                <input value="{{ date('yy-m-d',strtotime($product->finish_at)) }}" name="finish_at" id="finish_at" type="date" class="form-control @error('finish_at') is-invalid @enderror">
+            <div class="form-group col-md-3">
+                <label for="finish_at">Finish Date</label>
+                <input name="finish_at" id="date_end" value="{{ date('yy-m-d',strtotime($product->finish_at)) }}" type="text" class="form-control @error('finish_at') is-invalid @enderror" placeholder="Tanggal Turun" />
                 @error('finish_at')
                 <span class="invalid-feedback" role="alert">{{ $message }}</span>
                 @enderror
             </div>
         </div>
+
+
+        <hr class="my-3" style="border-top: 8px solid rgba(0, 0, 0, 0.05); border-radius: 2px;">
+
 
         <div class="form-group">
             <label for="meet_point">Meet Point</label>

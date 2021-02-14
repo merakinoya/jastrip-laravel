@@ -15,6 +15,9 @@ class MountainController extends Controller
     public function index()
     {
         //
+        $mountains = Mountain::all();
+
+        return view('asimimin.mountainlist', compact('mountains'));
     }
 
     /**

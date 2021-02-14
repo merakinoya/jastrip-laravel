@@ -24,7 +24,7 @@ class Products extends Model
         'finish_at',
 
         'meet_point',
-        'facility', 
+        'facility',
         'terms_condition',
         'img',
     ];
@@ -43,5 +43,11 @@ class Products extends Model
     public function dipunyaiUserProfile()
     {
         return $this->belongsTo('App\UserProfile', 'userprofile_id');
+    }
+    
+    // One to Many
+    public function punyaBooking()
+    {
+        return $this->hasMany('App\Booking','product_id','id');
     }
 }

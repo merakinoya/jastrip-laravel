@@ -37,6 +37,7 @@
                     <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
                         <div class="modal-content">
                             <div class="modal-header">
+                                
                                 <h5 class="modal-title" id="exampleModalLabel">{{ $product->name }}</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
@@ -57,7 +58,7 @@
                 <div class="media">
                     <!--  <img class="align-self-start mr-3 invisible" src="/icon/ic-trip.svg" alt="Generic placeholder image"> -->
                     <div class="media-body pb-2">
-                        <h2 class="font-weight-bold text-black text-capitalize">{{ $product->name }}</h2>
+                        <h2 class="font-weight-bold text-black text-capitalize">{{ $product->name }}-{{ $product->id }}</h2>
                         {{ $product->dipunyaiUser->name }}
                         <?php echo $product->description ?>
                     </div>
@@ -169,16 +170,10 @@
                 <small> /{{ $product->total_participant }} orang</small>
 
             </div>
-            @if($product->dipunyaiUserProfile->phone)
-            <a href="https://wa.me/62{{ $product->dipunyaiUserProfile->phone }}?text={{ utf8_encode("Hallo, Saya tertarik melihat iklan trips Anda, Saya mau ikut join trips")}}" target="_blank" class="btn btn-primary btn-lg float-right">
-                <i data-feather="message-circle"></i> Hubungi
-            </a>
-            @else
-            <a href="https://wa.me/6282219259952?text={{ utf8_encode("Hallo admin, Saya tertarik melihat iklan trips Anda, Saya mau ikut join trips")}}" target="_blank" class="btn btn-primary btn-lg float-right">
-                <i data-feather="message-circle"></i> Hubungi
-            </a>
-            @endif
 
+            <a href="{{ route('booking.create', $product->id) }}" target="_blank" class="btn btn-primary btn-lg float-right">
+                Booking
+            </a>
         </div>
     </nav>
 

@@ -81,7 +81,7 @@ class ProductsController extends Controller
         }
 
         $product = new Products;
-        $product->seller_id = $sellerid;
+        $product->seller_id        = $sellerid;
         $product->user_id          = $id;
         $product->userprofile_id   = $id;
 
@@ -101,7 +101,7 @@ class ProductsController extends Controller
 
         $product->save();
 
-        return redirect()->route('products.index')->with('success', 'Product created successfully.');
+        return redirect()->route('userprofile.index')->with('success', 'Product created successfully.');
     }
 
 
@@ -129,15 +129,15 @@ class ProductsController extends Controller
             'meet_point'        => 'required',
             'facility'          => 'required',
             'terms_condition'   => 'required',
-            'img'               => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:8048|file',
+            'img'               => 'image|mimes:jpeg,png,jpg,gif,svg|max:8048|file',
         ]);
 
         $product = Products::findOrFail($id);
 
-        if ($request->hasFile('img')) {
+        if ($request->hasFile('img')) 
+        {
             $filename = $request->img->getClientOriginalName();
-            // Save files to directory folder
-            $request->img->storeAs('/products', $filename, 'public_uploads');
+            $request->img->storeAs('/products', $filename, 'public_uploads'); // Save files to directory folder
         }
 
         $product->name              = $request->name;
@@ -152,7 +152,8 @@ class ProductsController extends Controller
         $product->facility          = $request->facility;
         $product->terms_condition   = $request->terms_condition;
 
-        if ($request->img) {
+        if ($request->img) 
+        {
             $product->img = $filename;
         }
 
