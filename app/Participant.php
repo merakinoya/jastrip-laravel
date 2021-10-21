@@ -17,7 +17,7 @@ class Participant extends Model
         'birth_date',
 
         'type', 
-        'card_id',
+        'card_id',  
     ];
 
     public function dipunyaiBooking()

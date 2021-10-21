@@ -263,7 +263,7 @@
 
         $('#firstNumber').on('keyup keydown change',function(){
             var inputs = '';
-            var value = parseInt($(this).val());
+            var value = parseInt($(this).val()); 
             for(var i = 0; i<value; i++){
                 inputs += `
                 <div class="row">

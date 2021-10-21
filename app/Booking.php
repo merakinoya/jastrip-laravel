@@ -25,7 +25,7 @@ class Booking extends Model
         'receipt',
         'paid_at',
 
-        'reason', 
+        'reason',  
         'canceled_at',
     ];
     

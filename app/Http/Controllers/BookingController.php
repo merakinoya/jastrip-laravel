@@ -85,7 +85,7 @@ class BookingController extends Controller
 
         // Add relation to UserProfile
 
-        $tenantName = $request->tenant_name;
+        $tenantName = $request->tenant_name; 
 
         foreach($tenantName as $getdata => $name)
         {
